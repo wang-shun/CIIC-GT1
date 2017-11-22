@@ -22,28 +22,19 @@
       <div class="menuInfo">
         <span class="message"><span class="f16"><strong>莉莉艾伦</strong></span><br/>服务支持中心</span>
         <span class="arrow"></span>
-        <span class="icon"></span>
-      </div>
-      <div class="menuItem">
-        <Badge dot>
-          <Poptip trigger="hover" placement="bottom" title="" content="任务单列表" style="text-align: left;">
-            <a href="javascript:;" class="message">我的审批</a>
-          </Poptip >
-        </Badge>
-        <Badge dot>
-          <Poptip trigger="hover" placement="bottom" title="" content="任务单列表" style="text-align: left;">
-            <a href="javascript:;" class="message">我的任务单</a>
-          </Poptip >
-        </Badge>
-        <Badge count="5" overflow-count="999">
-          <a href="javascript:;" class="email">&nbsp;</a>
-        </Badge>
-        <Badge dot>
-          <a href="javascript:;" class="bag"></a>
-        </Badge>
-        <Badge dot>
-          <a href="javascript:;" class="help"></a>
-        </Badge>
+        <Poptip trigger="hover" placement="bottom">
+          <Badge count="5" overflow-count="999">
+            <span class="icon"></span>
+          </Badge>
+          <div class="mylist" slot="content">
+            <a href="javascript:;">我的审批</a>
+            <a href="javascript:;">我的任务单</a>
+            <a href="javascript:;">站内信</a>
+            <a href="javascript:;">用户手册</a>
+            <a href="javascript:;">修改密码</a>
+            <a href="javascript:;" @click="backToLogin">退出登录</a>
+          </div>
+        </Poptip >
       </div>
     </div>
     
@@ -69,7 +60,9 @@
       
     },
     methods: {
-      
+      backToLogin() {
+        this.$router.push({name: "login"})
+      }
     }
   }
 
@@ -84,10 +77,14 @@
   .menu > .menuInfo {padding-top: 40px;}
   .menu > .menuItem {padding: 15px 0;}
 
-  .menuInfo > span, .menuItem a {font-size: 14px; color: #579bc2; text-align: right; display: inline-block; vertical-align: middle;}
+  .menuInfo span, .menuItem a {font-size: 14px; color: #579bc2; text-align: right; display: inline-block; vertical-align: middle;}
   .message {padding: 8px 16px; border-radius: 10px; cursor: pointer; background: #295974;}
   .menuInfo > .arrow {width:0; height:0; margin-left: -5px; border-top:10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #295974;}
-  .menuInfo > .icon {width: 48px; height: 48px; border-radius: 24px; background: url('../assets/person.jpg') no-repeat center center;}
+  .menuInfo .icon {width: 48px; height: 48px; border-radius: 24px; background: url('../assets/person.jpg') no-repeat center center;}
+
+  .menuInfo .mylist a {font-size: 12px; line-height: 40px; text-align: center; color: #666; display: block; height: 40px; border-bottom: 1px dotted #eee;    }
+  .menuInfo .mylist a:last-child {border-bottom: none;}
+  .menuInfo .mylist a:hover {color: #2d8cf0;}
 
   .menuItem a {margin-left: 24px;}
   .menuItem .email {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/email.png') no-repeat center center;}
@@ -96,13 +93,13 @@
 
   .menuContent {position: fixed; top: 175px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
 
-  li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;}
-  li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4), li:nth-child(5) {border-top: 1px solid #ccc;}
-  li:nth-child(1), li:nth-child(6), li:nth-child(11) {border-left: 1px solid #ccc;}
-  li a {text-align: center; display: block; width: 100%; height: 100%; padding: 10% 16%;}
-  li a:hover {border: none; -webkit-animation: neon2 1s ease-in-out infinite alternate; -moz-animation: neon2 1s ease-in-out infinite alternate; animation: neon2 1s ease-in-out infinite alternate;}
-  li a img {width: 76%;}
-  li p {font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+  .menuContent > ul > li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;}
+  .menuContent > ul > li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4), li:nth-child(5) {border-top: 1px solid #ccc;}
+  .menuContent > ul > li:nth-child(1), li:nth-child(6), li:nth-child(11) {border-left: 1px solid #ccc;}
+  .menuContent > ul > li a {text-align: center; display: block; width: 100%; height: 100%; padding: 10% 16%;}
+  .menuContent > ul > li a:hover {border: none; -webkit-animation: neon2 1s ease-in-out infinite alternate; -moz-animation: neon2 1s ease-in-out infinite alternate; animation: neon2 1s ease-in-out infinite alternate;}
+  .menuContent > ul > li a img {width: 76%;}
+  .menuContent > ul > li p {font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 
   @-webkit-keyframes neon2 {
     from {
