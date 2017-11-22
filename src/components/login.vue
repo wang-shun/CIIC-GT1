@@ -10,7 +10,7 @@
         <p class="error" v-show="!validateName">用户名格式错误</p>
         <input type="password" v-model.trim="loginValidate.password" placeholder="密码" />
         <p class="error" v-show="!validatePassword">密码格式错误</p>
-        <button @click="handleLogin('loginValidate')">登录</button>
+        <button :disabled="!valid" @click="handleLogin">登录</button>
         <div class="mt40">
           <CheckboxGroup class="width50 fl">
             <Checkbox label="记住密码"></Checkbox>
@@ -35,6 +35,9 @@
         }
       }
     },
+    mounted() {
+      
+    },
     computed: {
       valid() {
         return this.validateName && this.validatePassword;
@@ -46,21 +49,12 @@
         return this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
       }
     },
-
     methods: {
-      handleLogin(name) {
-          let names = this.loginValidate.name;
-          let password = this.loginValidate.password;
-          if (this.valid) {
-            this.$Message.success('提交成功!');
-            this.$router.push({
-              name: 'menu',
-              // params:{userName:names}
-            });
-            this.$local.save('userName', names);
-          } else {
-            this.$Message.error('表单验证失败!');
-          }
+      handleLogin() {
+        // let names = this.loginValidate.name;
+        // let password = this.loginValidate.password;
+        // this.$local.save('userName', names);
+        this.$router.replace({name: 'menu'});
       }
     }
   }
