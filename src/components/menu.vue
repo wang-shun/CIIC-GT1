@@ -27,14 +27,73 @@
             <span class="icon"></span>
           </Badge>
           <div class="mylist" slot="content">
-            <a href="javascript:;">我的审批</a>
-            <a href="javascript:;">我的任务单</a>
             <a href="javascript:;">站内信</a>
             <a href="javascript:;">用户手册</a>
             <a href="javascript:;">修改密码</a>
             <a href="javascript:;" @click="backToLogin">退出登录</a>
           </div>
         </Poptip >
+      </div>
+            <div class="menuItem">
+        <Badge dot>
+        <a class="message" href="http://172.16.9.25:8100/#/pending_approves" >我的审批</a>
+        </Badge>
+        <Badge dot>
+          <Dropdown placement="bottom-start" >
+            <a class="message" href="javascript:;" >我的任务</a>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout"  class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员预录用-预增</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员预录用-发放offer</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员预录用-入职体检</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员预录用-背景调查</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员新进-新入职</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员新进-集体转入,无需用工</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-外地社保转上海</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-上海社保转外地</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-翻牌（更改用工单位）</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-上海基数调整</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-外地基数调整</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-暂停缴费</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-恢复缴费</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员终止-离职</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员终止-集体转出，无需退工</a></Dropdown-item>
+            </Dropdown-menu>
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-人员性质转换</a></Dropdown-item>
+            </Dropdown-menu>      
+            <Dropdown-menu slot="list">
+                <Dropdown-item name="logout" class="mi"><a href="http://172.16.9.25:8101/workOrder/main/preEmploy">雇员变更-修改用退工信息</a></Dropdown-item>
+            </Dropdown-menu>   
+          </Dropdown>
+        </Badge>
       </div>
     </div>
     
@@ -122,5 +181,12 @@
                   0 0 30px #e4eefc,
                   0 0 35px #e4eefc;
     }
+  }
+.mi {
+    width: 250px; 
+    text-align: left;
+
+    border:0;
+    padding: 5px 10px;
   }
 </style>
