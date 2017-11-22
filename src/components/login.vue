@@ -54,7 +54,7 @@
         // let names = this.loginValidate.name;
         // let password = this.loginValidate.password;
         // this.$local.save('userName', names);
-        this.$router.replace({name: 'menu'});
+        this.$router.push({name: 'menu'});
       }
     }
   }
