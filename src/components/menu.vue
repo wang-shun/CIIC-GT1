@@ -20,7 +20,7 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <span class="message"><span class="f16"><strong>莉莉艾伦</strong></span><br/>服务支持中心</span>
+        <span class="message"><span class="f16"><strong>莉莉艾伦</strong></span><br/>1813</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
           <Badge count="5" overflow-count="999">
@@ -28,8 +28,11 @@
           </Badge>
           <div class="mylist" slot="content">
             <a href="javascript:;">我的审批</a>
-            <a href="javascript:;">我的任务单</a>
-            <a href="javascript:;">站内信</a>
+            <a href="javascript:;" @click="isActive = !isActive">我的任务单 {{isActive ? "▲" : "▼"}}</a>
+            <div :class="[isActive ? 'changeToH' : 'changeToZ', 'myTaskList']">
+              <a href="javascript:;"></a>
+            </div>
+            <a href="javascript:;" @click="openMessageBox">站内信</a>
             <a href="javascript:;">用户手册</a>
             <a href="javascript:;">修改密码</a>
             <a href="javascript:;" @click="backToLogin">退出登录</a>
@@ -44,7 +47,7 @@
   export default {
     data() {
       return {
-
+        isActive: true
       }
     },
     created() {
@@ -62,6 +65,12 @@
     methods: {
       backToLogin() {
         this.$router.push({name: "login"})
+      },
+      openMessageBox() {
+        this.$Notice.open({
+          desc: '<div style="max-height: 100px; overflow-y: auto;"><h3>标题1</h3><p>我是标题1的内容</p><br/><h3>标题2</h3><p>我是标题2的内容</p><br/><h3>标题3</h3><p>我是标题3的内容</p></div>',
+          duration: 0
+        });
       }
     }
   }
@@ -85,13 +94,16 @@
   .menuInfo .mylist a {font-size: 12px; line-height: 40px; text-align: center; color: #666; display: block; height: 40px; border-bottom: 1px dotted #eee;    }
   .menuInfo .mylist a:last-child {border-bottom: none;}
   .menuInfo .mylist a:hover {color: #2d8cf0;}
+  .menuInfo .mylist .myTaskList {height: 0; overflow-y: auto;}
+  .changeToH {animation: changeToHeight 0.5s ease 0s 1 alternate forwards;}
+  .changeToZ {animation: changeToZero 0.5s ease 0s 1 alternate forwards;}
 
   .menuItem a {margin-left: 24px;}
   .menuItem .email {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/email.png') no-repeat center center;}
   .menuItem .bag {width: 28px; height: 28px; border-radius: 10px; background: url('../assets/bag.png') no-repeat center center;}
   .menuItem .help {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/help.png') no-repeat center center;}
 
-  .menuContent {position: fixed; top: 175px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
+  .menuContent {position: fixed; top: 150px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
 
   .menuContent > ul > li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;}
   .menuContent > ul > li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4), li:nth-child(5) {border-top: 1px solid #ccc;}
@@ -122,5 +134,14 @@
                   0 0 30px #e4eefc,
                   0 0 35px #e4eefc;
     }
+  }
+
+  @keyframes changeToHeight {
+    from {height: 0;}
+    to {height: 150px;}
+  }
+  @keyframes changeToZero {
+    from {height: 150px;}
+    to {height: 0;}
   }
 </style>
