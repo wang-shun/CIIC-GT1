@@ -7,8 +7,8 @@
         <li><a href="http://172.16.9.61:8070/proxyCenter/index.html#/"><img src="../assets/menu/foreign-proxy-center.png" alt="代理中心" /><p>代理中心</p></a></li>
         <li><a href="http://172.16.9.25:8101"><img src="../assets/menu/foreign-employee-center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
         <li><a href="http://172.16.9.25:8104"><img src="../assets/menu/foreign-customer-center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
-        <li><a href="#"><img src="../assets/menu/foreign-support-center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
-        <li><a href="http://172.16.9.61:8070/FCBusinessPortal/#/main"><img src="../assets/menu/finance-support-center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
+        <li><a href="http://172.16.9.61:8070/AFSupportCenter/#/main/"><img src="../assets/menu/foreign-support-center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
+        <li><a href="http://172.16.9.61:8070/FCBusinessPortal/#/"><img src="../assets/menu/finance-support-center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
         <li><a href="http://172.16.9.61:8070/BillCenter/iView/index.html"><img src="../assets/menu/bill-center.png" alt="账单中心" /><p>账单中心</p></a></li>
         <li><a href="http://172.16.9.61:8070/SettlementCenter/iview/index.html"><img src="../assets/menu/settle-center.png" alt="结算中心" /><p>结算中心</p></a></li>
         <li><a href="#"><img src="../assets/menu/employee-selfhelp-center.png" alt="财务咨询报表中心" /><p>财务咨询报表中心</p></a></li>
@@ -20,7 +20,7 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <span class="message"><span class="f16"><strong>莉莉艾伦</strong></span><br/>1813</span>
+        <span class="message"><span class="f16">欢迎您！<strong>莉莉艾伦</strong></span><br/>工号：1813</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
           <Badge count="5" overflow-count="999">
@@ -46,7 +46,7 @@
   export default {
     data() {
       return {
-        isActive: true,
+        isActive: false,
         taskList: [
           {label: "雇员预录用-预增", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
           {label: "雇员预录用-发放offer", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
@@ -115,7 +115,7 @@
   .menuInfo .mylist .myTaskList {height: 0; overflow-y: auto;}
   .menuInfo .mylist .myTaskList a {display: block; padding: 5px; background: #eee;}
   .changeToH {animation: changeToHeight 0.5s ease 0s 1 alternate forwards;}
-  .changeToZ {animation: changeToZero 0.5s ease 0s 1 alternate forwards;}
+  .changeToZ {animation: changeToZero 0s ease 0s 1 alternate forwards;}
 
   .menuItem a {margin-left: 24px;}
   .menuItem .email {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/email.png') no-repeat center center;}

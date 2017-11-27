@@ -5,19 +5,17 @@
       <div class="blueLine"></div>
     </div>
     <div class="formContent">
-      <form>
-        <input type="text" v-model.trim="loginValidate.name" placeholder="用户名" autofocus />
-        <p class="error" v-show="!validateName">用户名格式错误</p>
-        <input type="password" v-model.trim="loginValidate.password" placeholder="密码" />
-        <p class="error" v-show="!validatePassword">密码格式错误</p>
-        <button :disabled="!valid" @click="handleLogin">登录</button>
-        <div class="mt40">
-          <CheckboxGroup class="width50 fl">
-            <Checkbox label="记住密码"></Checkbox>
-          </CheckboxGroup>
-          <a href="javascript:;">忘记密码</a>
-        </div>
-      </form>
+      <input type="text" v-model.trim="loginValidate.name" placeholder="用户名" autofocus />
+      <p class="error" v-show="!validateName">用户名格式错误</p>
+      <input type="password" v-model.trim="loginValidate.password" placeholder="密码" />
+      <p class="error" v-show="!validatePassword">密码格式错误</p>
+      <button :disabled="!valid" @click="handleLogin">登录</button>
+      <div class="mt40">
+        <CheckboxGroup class="width50 fl">
+          <Checkbox label="记住密码"></Checkbox>
+        </CheckboxGroup>
+        <a href="javascript:;">忘记密码</a>
+      </div>
     </div>
   </div>
 </template>

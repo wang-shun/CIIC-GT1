@@ -11,7 +11,6 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
       component: login
     },
     {
