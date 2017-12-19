@@ -2,20 +2,20 @@
   <div class="bg">
     <div class="menuContent">
       <ul>
-        <li><a href="http://172.16.9.25:8100/"><img src="../assets/menu/sales-center.png" alt="销售中心" /><p>销售中心</p></a></li>
-        <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/finance-service-center.png" alt="外企客服中心" /><p>外企客服中心</p></a></li>
-        <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/foreign-proxy-center.png" alt="代理中心" /><p>代理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign-employee-center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
-        <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/foreign-customer-center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
-        <li><a href="http://172.16.9.25:8108/#/main/"><img src="../assets/menu/foreign-support-center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
-        <li><a href="http://172.16.9.25:8112/#/"><img src="../assets/menu/finance-support-center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
-        <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill-center.png" alt="账单中心" /><p>账单中心</p></a></li>
-        <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settle-center.png" alt="结算中心" /><p>结算中心</p></a></li>
-        <li><a href="#"><img src="../assets/menu/employee-selfhelp-center.png" alt="财务咨询报表中心" /><p>财务咨询报表中心</p></a></li>
-        <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product-center.png" alt="产品中心" /><p>产品中心</p></a></li>
-        <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter-center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign-control-center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
-        <li><a href="http://172.16.9.25:8113/#/"><img src="../assets/menu/finance-operator-center.png" alt="财务咨询运营中心" /><p>财务咨询运营中心</p></a></li>
+        <li><a href="http://172.16.9.25:8100/"><img src="../assets/menu/sales_center.png" alt="销售中心" /><p>销售中心</p></a></li>
+        <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/foreign_service_center.png" alt="外企客服中心" /><p>外企客服中心</p></a></li>
+        <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
+        <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
+        <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
+        <li><a href="http://172.16.9.25:8108/#/main/"><img src="../assets/menu/foreign_support_center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
+        <li><a href="http://172.16.9.25:8112/#/"><img src="../assets/menu/finance_advisory_business_center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
+        <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill_center.png" alt="账单中心" /><p>账单中心</p></a></li>
+        <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settlement_center.png" alt="结算中心" /><p>结算中心</p></a></li>
+        <li><a href="#"><img src="../assets/menu/finance_advisory_report_center.png" alt="财务咨询报表中心" /><p>财务咨询报表中心</p></a></li>
+        <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product_center.png" alt="产品中心" /><p>产品中心</p></a></li>
+        <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter_manage_center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
+        <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign_control_center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
+        <li><a href="http://172.16.9.25:8113/#/"><img src="../assets/menu/finance_advisory_operator_center.png" alt="财务咨询运营中心" /><p>财务咨询运营中心</p></a></li>
       </ul>
     </div>
     <div class="menu">
@@ -69,16 +69,16 @@
       }
     },
     created() {
-      
+
     },
     watch: {
-      
+
     },
     mounted() {
-      
+
     },
     computed: {
-      
+
     },
     methods: {
       backToLogin() {
@@ -133,7 +133,7 @@
   .menuContent > ul > li p {font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 
   .mi {
-    width: 250px; 
+    width: 250px;
     text-align: left;
 
     border:0;
