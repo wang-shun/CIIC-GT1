@@ -7,11 +7,15 @@
         <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
         <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
         <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
+      </ul>
+      <ul>
         <li><a href="http://172.16.9.25:8108/#/main/"><img src="../assets/menu/foreign_support_center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
         <li><a href="http://172.16.9.25:8112/#/"><img src="../assets/menu/finance_advisory_business_center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
         <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill_center.png" alt="账单中心" /><p>账单中心</p></a></li>
         <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settlement_center.png" alt="结算中心" /><p>结算中心</p></a></li>
         <li><a href="#"><img src="../assets/menu/finance_advisory_report_center.png" alt="财务咨询报表中心" /><p>财务咨询报表中心</p></a></li>
+      </ul>
+      <ul>
         <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product_center.png" alt="产品中心" /><p>产品中心</p></a></li>
         <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter_manage_center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
         <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign_control_center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
@@ -123,12 +127,15 @@
   .menuItem .help {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/help.png') no-repeat center center;}
 
   .menuContent {position: fixed; top: 150px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
+  .menuContent ul {border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; overflow: hidden; margin-top: -1px;}
+  .menuContent ul:nth-child(3) {border-bottom: 0; border-right: 1px solid white;}
+  .menuContent ul:nth-child(3) li {border-bottom: 1px solid #ccc;}
+  .menuContent ul:nth-child(3) li:last-child {border-right: 1px solid #ccc;}
 
-  .menuContent > ul > li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;}
-  .menuContent > ul > li:nth-child(1), li:nth-child(2), li:nth-child(3), li:nth-child(4), li:nth-child(5) {border-top: 1px solid #ccc;}
-  .menuContent > ul > li:nth-child(1), li:nth-child(6), li:nth-child(11) {border-left: 1px solid #ccc;}
-  .menuContent > ul > li a {text-align: center; display: block; width: 100%; height: 100%; padding: 10% 16%;}
-  .menuContent > ul > li a:hover {border: none; -webkit-animation: neon2 1s ease-in-out infinite alternate; -moz-animation: neon2 1s ease-in-out infinite alternate; animation: neon2 1s ease-in-out infinite alternate;}
+  .menuContent > ul > li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; position: relative;}
+  .menuContent > ul > li:hover {border: none; animation: neon2 2s infinite linear alternate;}
+  .menuContent > ul > li:last-child {border-right: 0;}
+  .menuContent > ul > li a {text-align: center; display: inline-block; width: 100%; height: 100%; padding: 10% 16%;}
   .menuContent > ul > li a img {width: 76%;}
   .menuContent > ul > li p {font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
 
@@ -142,24 +149,24 @@
 
   @-webkit-keyframes neon2 {
     from {
-      box-shadow: 0 0 1px #fff,
-                  0 0 5px  #fff,
-                  0 0 10px  #fff,
-                  0 0 15px  #e4eefc,
-                  0 0 20px  #e4eefc,
-                  0 0 25px  #e4eefc,
-                  0 0 30px #e4eefc,
-                  0 0 35px #e4eefc;
+      box-shadow: inset 0 0 1px  #5cadff,
+                  inset 0 0 5px  #5cadff,
+                  inset 0 0 10px #5cadff,
+                  inset 0 0 15px #c9e3fe,
+                  inset 0 0 20px #b6dafe,
+                  inset 0 0 25px #a3d1ff,
+                  inset 0 0 30px #8cc5ff,
+                  inset 0 0 35px #5cadff;
     }
     to {
-      box-shadow: 0 0 1px #fff,
-                  0 0 5px #fff,
-                  0 0 10px #fff,
-                  0 0 15px #e4eefc,
-                  0 0 20px #e4eefc,
-                  0 0 25px #e4eefc,
-                  0 0 30px #e4eefc,
-                  0 0 35px #e4eefc;
+      box-shadow: inset 0 0 35px #5cadff,
+                  inset 0 0 30px #8cc5ff,
+                  inset 0 0 25px #a3d1ff,
+                  inset 0 0 20px #b6dafe,
+                  inset 0 0 15px #c9e3fe,
+                  inset 0 0 10px #daecfe,
+                  inset 0 0 5px  #ecf5ff,
+                  inset 0 0 1px  #fafcff;
     }
   }
 
