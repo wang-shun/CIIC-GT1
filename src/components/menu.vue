@@ -3,7 +3,7 @@
     <div class="menuContent">
       <ul>
         <li><a href="http://172.16.9.25:8100/"><img src="../assets/menu/sales_center.png" alt="销售中心" /><p>销售中心</p></a></li>
-        <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/foreign_service_center.png" alt="外企客服中心" /><p>外企客服中心</p></a></li>
+        <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/foreign_service_center.png" alt="客服中心" /><p>客服中心</p></a></li>
         <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
         <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
         <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
