@@ -3,23 +3,24 @@
     <div class="menuContent">
       <ul>
         <li><a href="http://172.16.9.25:8100/"><img src="../assets/menu/sales_center.png" alt="销售中心" /><p>销售中心</p></a></li>
+        <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product_center.png" alt="产品中心" /><p>产品中心</p></a></li>
+        <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter_manage_center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
         <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/foreign_service_center.png" alt="客服中心" /><p>客服中心</p></a></li>
-        <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="外企雇员中心" /><p>外企雇员中心</p></a></li>
-        <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
+        <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="雇员中心" /><p>雇员中心</p></a></li>
       </ul>
       <ul>
         <li><a href="http://172.16.9.25:8108/#/main/"><img src="../assets/menu/foreign_support_center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
+        <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
+        <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign_control_center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
         <li><a href="http://172.16.9.25:8112/#/"><img src="../assets/menu/finance_advisory_business_center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
-        <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill_center.png" alt="账单中心" /><p>账单中心</p></a></li>
-        <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settlement_center.png" alt="结算中心" /><p>结算中心</p></a></li>
-        <li><a href="#"><img src="../assets/menu/finance_advisory_report_center.png" alt="财务咨询报表中心" /><p>财务咨询报表中心</p></a></li>
+        <li><a href="http://172.16.9.25:8113/#/"><img src="../assets/menu/finance_advisory_operator_center.png" alt="财务咨询运营中心" /><p>财务咨询运营中心</p></a></li>
       </ul>
       <ul>
-        <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product_center.png" alt="产品中心" /><p>产品中心</p></a></li>
-        <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter_manage_center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign_control_center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
-        <li><a href="http://172.16.9.25:8113/#/"><img src="../assets/menu/finance_advisory_operator_center.png" alt="财务咨询运营中心" /><p>财务咨询运营中心</p></a></li>
+        <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
+        <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill_center.png" alt="账单中心" /><p>账单中心</p></a></li>
+        <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settlement_center.png" alt="结算中心" /><p>结算中心</p></a></li>
+        <li><a href="#"><img src="../assets/menu/finance_advisory_report_center.png" alt="报表中心" /><p>报表中心</p></a></li>
+        <li><a href="#"><img src="../assets/menu/business_intelligence_center.png" alt="商业智能中心" /><p>商业智能中心</p></a></li>
       </ul>
     </div>
     <div class="menu">
