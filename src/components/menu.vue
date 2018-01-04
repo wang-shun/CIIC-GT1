@@ -102,11 +102,11 @@
 <style scoped>
   * {margin: 0; padding: 0;}
   html, body {width: 100%; height: 100%; min-height: 100%; overflow: hidden;}
-  .bg {height: 580px; position: relative; z-index: 1; background: #3d6e8a url('../assets/menu-bg.png') no-repeat center top;}
+  .bg {height: 480px; position: relative; z-index: 1; background: #3d6e8a url('../assets/menu-bg.png') no-repeat center top;}
   .f16 {font-size: 16px;}
   .menu {width: 100%; height: 175px;}
   .menu > .menuInfo, .menu > .menuItem {text-align: right; width: 66%; margin: 0 auto;}
-  .menu > .menuInfo {padding-top: 40px;}
+  .menu > .menuInfo {padding-top: 35px;}
   .menu > .menuItem {padding: 15px 0;}
 
   .menuInfo span, .menuItem a {font-size: 14px; color: #579bc2; text-align: right; display: inline-block; vertical-align: middle;}
@@ -127,7 +127,7 @@
   .menuItem .bag {width: 28px; height: 28px; border-radius: 10px; background: url('../assets/bag.png') no-repeat center center;}
   .menuItem .help {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/help.png') no-repeat center center;}
 
-  .menuContent {position: fixed; top: 150px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
+  .menuContent {position: fixed; top: 120px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
   .menuContent ul {border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; overflow: hidden; margin-top: -1px;}
   .menuContent ul:nth-child(3) {border-bottom: 0; border-right: 1px solid white;}
   .menuContent ul:nth-child(3) li {border-bottom: 1px solid #ccc;}
