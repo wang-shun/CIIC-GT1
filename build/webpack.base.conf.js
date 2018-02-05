@@ -40,6 +40,12 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test'),resolve('node_modules/iview/src/mixins/emitter')]
+
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {

@@ -20,6 +20,9 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  import config from '../lib/config'
+
   export default {
     data() {
       return {
@@ -34,7 +37,7 @@
       }
     },
     mounted() {
-      
+
     },
     computed: {
       valid() {
@@ -44,15 +47,35 @@
         return this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
       },
       validatePassword() {
-        return this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+        return true;
       }
+//      validatePassword() {
+//        return this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+//      }
     },
     methods: {
       handleLogin() {
-        // let names = this.loginValidate.name;
-        // let password = this.loginValidate.password;
-        // this.$local.save('userName', names);
-        this.$router.push({name: 'menu'});
+        let data = {
+          loginName: this.loginValidate.name,
+          password: this.loginValidate.password,
+          verifyCode: ''
+        };
+        let basePath = config.env === 'development' ? 'http://172.16.9.19:9621/api' : 'http://172.16.9.29:9621/api'
+        axios({
+          method: "POST",
+          url: basePath + '/login',
+          data: data,
+        }).then(response => {
+          const responseData = response.data;
+          if (responseData.code === 0) {
+            this.$local.set('userInfo', responseData.object)
+            this.$router.push({name: 'menu'});
+          } else if (responseData.code === 300) {
+            this.$Message.error('用户名或密码错误')
+          }
+        }).catch(error => {
+          this.$Message.error('服务器神游中~')
+        });
       }
     }
   }
@@ -74,6 +97,4 @@
   .formContent button {font-size: 16px; color: white; line-height: 50px; width: 100%; height: 50px; margin-top: 25px; outline: none; border: none; border-radius: 5px; background: #3393d6;}
   .formContent button:hover {background: #2c98e3;}
   .formContent a {color: #495060; line-height: 20px; text-align: right; width: 50%; height: 20px; float: right;}
-
-
 </style>

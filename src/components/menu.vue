@@ -25,7 +25,7 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <span class="message"><span class="f16">欢迎您！<strong>莉莉艾伦</strong></span><br/>工号：1813</span>
+        <span class="message"><span class="f16">欢迎您！<strong>{{userInfo.loginName}}</strong></span><br/>工号：{{userInfo.employeeNumber}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
           <Badge count="5" overflow-count="999">
@@ -52,6 +52,7 @@
     data() {
       return {
         isActive: false,
+        userInfo: {},
         taskList: [
           {label: "雇员预录用-预增", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
           {label: "雇员预录用-发放offer", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
@@ -80,7 +81,7 @@
 
     },
     mounted() {
-
+      this.userInfo = this.$local.get('userInfo')
     },
     computed: {
 
