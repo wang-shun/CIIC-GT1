@@ -28,7 +28,7 @@
         <span class="message"><span class="f16">欢迎您！<strong>{{userInfo.displayName}}</strong></span><br/>工号：{{userInfo.employeeNumber}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
-          <Badge count="5" overflow-count="999">
+          <Badge count="0" overflow-count="999">
             <a href="javascript:;" class="icon">
               <img width="100%" :src="userInfo.headPortrait" alt="" />
             </a>
