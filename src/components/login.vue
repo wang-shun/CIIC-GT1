@@ -47,11 +47,8 @@
         return this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
       },
       validatePassword() {
-        return true;
+        return this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
       }
-//      validatePassword() {
-//        return this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
-//      }
     },
     methods: {
       handleLogin() {
