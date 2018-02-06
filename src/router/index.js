@@ -22,7 +22,6 @@ let router = new Router({
 })
 
 router.beforeEach((to,from,next)=>{
-  console.log(router.app.$local);
   window.document.title ="高铁一号线";
     localStorage.setItem('level1',to.meta.level1);
     localStorage.setItem('level2',to.meta.level2);

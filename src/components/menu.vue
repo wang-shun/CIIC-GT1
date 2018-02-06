@@ -25,11 +25,13 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <span class="message"><span class="f16">欢迎您！<strong>{{userInfo.loginName}}</strong></span><br/>工号：{{userInfo.employeeNumber}}</span>
+        <span class="message"><span class="f16">欢迎您！<strong>{{userInfo.displayName}}</strong></span><br/>工号：{{userInfo.employeeNumber}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
           <Badge count="5" overflow-count="999">
-            <span class="icon"></span>
+            <a href="javascript:;" class="icon">
+              <img width="100%" :src="userInfo.headPortrait" alt="" />
+            </a>
           </Badge>
           <div class="mylist" slot="content">
             <a href="http://172.16.9.25:8100/#/pending_approves">我的审批</a>
@@ -82,6 +84,7 @@
     },
     mounted() {
       this.userInfo = this.$local.get('userInfo')
+      console.log(JSON.stringify(this.userInfo))
     },
     computed: {
 
@@ -113,9 +116,9 @@
   .menuInfo span, .menuItem a {font-size: 14px; color: #579bc2; text-align: right; display: inline-block; vertical-align: middle;}
   .message {padding: 8px 16px; border-radius: 10px; cursor: pointer; background: #295974;}
   .menuInfo > .arrow {width:0; height:0; margin-left: -5px; border-top:10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #295974;}
-  .menuInfo .icon {width: 48px; height: 48px; border-radius: 24px; background: url('../assets/person.jpg') no-repeat center center;}
+  .menuInfo .icon {display: block; width: 48px; height: 48px; border-radius: 24px; overflow: hidden; border: 1px solid white;}
 
-  .menuInfo .mylist a {font-size: 12px; line-height: 40px; text-align: center; color: #666; display: block; height: 40px; border-bottom: 1px dotted #eee;    }
+  .menuInfo .mylist a {font-size: 12px; line-height: 40px; text-align: center; color: #666; display: block; height: 40px; border-bottom: 1px dotted #eee;}
   .menuInfo .mylist a:last-child {border-bottom: none;}
   .menuInfo .mylist a:hover {color: #2d8cf0;}
   .menuInfo .mylist .myTaskList {height: 0; overflow-y: auto;}
