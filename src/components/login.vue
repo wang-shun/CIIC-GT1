@@ -57,7 +57,7 @@
           password: this.loginValidate.password,
           verifyCode: ''
         };
-        let basePath = config.env === 'development' ? 'http://172.16.9.19:9621/api' : 'http://172.16.9.29:9621/api'
+        let basePath = config.env === 'development' ? 'http://172.16.9.31:9621/api' : 'http://172.16.9.29:9621/api'
         axios({
           method: "POST",
           url: basePath + '/login',
