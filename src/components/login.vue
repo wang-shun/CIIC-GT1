@@ -21,6 +21,7 @@
 </template>
 <script>
   import axios from 'axios'
+  import { CrossStorageClient, CrossStorageHub } from 'cross-storage'
   import config from '../lib/config'
 
   export default {
@@ -37,7 +38,9 @@
       }
     },
     mounted() {
-
+      CrossStorageHub.init([
+        {origin: /localhost:\d+$/, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
+      ]);
     },
     computed: {
       valid() {
@@ -52,6 +55,7 @@
     },
     methods: {
       handleLogin() {
+        let storage = new CrossStorageClient('http://localhost:9005');
         let data = {
           loginName: this.loginValidate.name,
           password: this.loginValidate.password,
@@ -66,7 +70,11 @@
         }).then(response => {
           const responseData = response.data;
           if (responseData.code === 0) {
-            this.$local.set('userInfo', responseData.object)
+            storage.onConnect().then(function() {
+              return storage.set('userInfo', JSON.stringify(responseData.object));
+            }).catch(function(err) {
+              console.log(err);
+            });
             this.$router.push({name: 'menu'});
           } else if (responseData.code === 300) {
             this.$Message.error('用户名或密码错误')
