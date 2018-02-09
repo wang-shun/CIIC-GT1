@@ -117,7 +117,7 @@
             originReg = /localhost:.*$/
             break
           case 'sit':
-            basePath = 'http://172.16.9.24'
+            basePath = 'http://172.16.9.25'
             originReg = /172.16.9.24:.*$/
             break
           case 'uat':

@@ -75,7 +75,7 @@
             basePath = 'http://localhost'
             break
           case 'sit':
-            basePath = 'http://172.16.9.24'
+            basePath = 'http://172.16.9.25'
             break
           case 'uat':
             basePath = 'http://172.16.9.60'
