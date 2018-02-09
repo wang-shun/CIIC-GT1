@@ -21,9 +21,6 @@
 </template>
 <script>
   import axios from 'axios'
-  import { CrossStorageClient, CrossStorageHub } from 'cross-storage'
-  import config from '../lib/config'
-
   export default {
     data() {
       return {
@@ -36,11 +33,6 @@
           passwordRule: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/ //6-21字母和数字组成
         }
       }
-    },
-    mounted() {
-      CrossStorageHub.init([
-        {origin: /localhost:\d+$/, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
-      ]);
     },
     computed: {
       valid() {
@@ -55,33 +47,47 @@
     },
     methods: {
       handleLogin() {
-        let storage = new CrossStorageClient('http://localhost:9005');
         let data = {
           loginName: this.loginValidate.name,
           password: this.loginValidate.password,
           verifyCode: ''
         };
-//        let basePath = config.env === 'development' ? 'http://172.16.9.31:9621/api' : 'http://172.16.9.29:9621/api'
-        let basePath = 'http://172.16.9.31:9621/api'
         axios({
           method: "POST",
-          url: basePath + '/login',
+          url: this.getBasePath(process.env.env) + '/login',
           data: data,
         }).then(response => {
-          const responseData = response.data;
-          if (responseData.code === 0) {
-            storage.onConnect().then(function() {
-              return storage.set('userInfo', JSON.stringify(responseData.object));
-            }).catch(function(err) {
-              console.log(err);
-            });
-            this.$router.push({name: 'menu'});
-          } else if (responseData.code === 300) {
-            this.$Message.error('用户名或密码错误')
+          switch (response.data.code) {
+            case 0:
+              window.localStorage.setItem('userInfo', JSON.stringify(response.data.object))
+              this.$router.push({name: 'menu'})
+              break
+            default:
+              this.$Message.error('用户名或密码错误')
+              break
           }
-        }).catch(error => {
-          this.$Message.error('服务器神游中~')
-        });
+        })
+      },
+      getBasePath(env) {
+        let basePath = ''
+        switch (env) {
+          case 'dev':
+            basePath = 'http://localhost'
+            break
+          case 'sit':
+            basePath = 'http://172.16.9.24'
+            break
+          case 'uat':
+            basePath = 'http://172.16.9.60'
+            break
+          case 'prod':
+            basePath = 'http://172.16.9.60'
+            break
+          default:
+            basePath = 'http://localhost'
+            break
+        }
+        return `${basePath}:9621/api`
       }
     }
   }

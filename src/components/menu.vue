@@ -1,26 +1,13 @@
 <template>
   <div class="bg">
     <div class="menuContent">
-      <ul>
-        <li><a href="http://172.16.9.25:8100/"><img src="../assets/menu/sales_center.png" alt="销售中心" /><p>销售中心</p></a></li>
-        <li><a href="http://172.16.9.25:8106"><img src="../assets/menu/product_center.png" alt="产品中心" /><p>产品中心</p></a></li>
-        <li><a href="http://172.16.9.25:8105/"><img src="../assets/menu/supporter_manage_center.png" alt="供应商管理中心" /><p>供应商管理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8103/"><img src="../assets/menu/foreign_service_center.png" alt="客服中心" /><p>客服中心</p></a></li>
-        <li><a href="http://172.16.9.25:8101/"><img src="../assets/menu/foreign_employee_center.png" alt="雇员中心" /><p>雇员中心</p></a></li>
-      </ul>
-      <ul>
-        <li><a href="http://172.16.9.25:8108/#/main/"><img src="../assets/menu/foreign_support_center.png" alt="外企支持中心" /><p>外企支持中心</p></a></li>
-        <li><a href="http://172.16.9.25:8109/#/"><img src="../assets/menu/proxy_center.png" alt="代理中心" /><p>代理中心</p></a></li>
-        <li><a href="http://172.16.9.25:8107/dic_list"><img src="../assets/menu/foreign_control_center.png" alt="外企内控中心" /><p>外企内控中心</p></a></li>
-        <li><a href="http://172.16.9.25:8112/#/"><img src="../assets/menu/finance_advisory_business_center.png" alt="财务咨询业务中心" /><p>财务咨询业务中心</p></a></li>
-        <li><a href="http://172.16.9.25:8113/#/"><img src="../assets/menu/finance_advisory_operator_center.png" alt="财务咨询运营中心" /><p>财务咨询运营中心</p></a></li>
-      </ul>
-      <ul>
-        <li><a href="http://172.16.9.25:8104/"><img src="../assets/menu/service_outsourcing_business_center.png" alt="服务外包业务中心" /><p>服务外包业务中心</p></a></li>
-        <li><a href="http://172.16.9.25:8110/#/"><img src="../assets/menu/bill_center.png" alt="账单中心" /><p>账单中心</p></a></li>
-        <li><a href="http://172.16.9.25:8111/#/"><img src="../assets/menu/settlement_center.png" alt="结算中心" /><p>结算中心</p></a></li>
-        <li><a href="#"><img src="../assets/menu/finance_advisory_report_center.png" alt="报表中心" /><p>报表中心</p></a></li>
-        <li><a href="#"><img src="../assets/menu/business_intelligence_center.png" alt="商业智能中心" /><p>商业智能中心</p></a></li>
+      <ul v-for="(centerRouter, index) in centerRouters" :key="index">
+        <li v-for="(row, index) in centerRouter" :key="index">
+          <a @click="setToken(row.url)">
+            <img :src="row.imgSrc" />
+            <p>{{row.name}}</p>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="menu">
@@ -39,10 +26,10 @@
             <div :class="[isActive ? 'changeToH' : 'changeToZ', 'myTaskList']">
               <a :href="task.url" v-for="(task, index) in taskList" :key="index">{{task.label}}</a>
             </div>
-            <a href="javascript:;" @click="openMessageBox">站内信</a>
+            <a href="javascript:;">站内信</a>
             <a href="javascript:;">用户手册</a>
             <a href="javascript:;">修改密码</a>
-            <a href="javascript:;" @click="backToLogin">退出登录</a>
+            <a href="javascript:;" @click="setToken">退出登录</a>
           </div>
         </Poptip >
       </div>
@@ -50,11 +37,35 @@
   </div>
 </template>
 <script>
+  import {CrossStorageClient, CrossStorageHub} from 'cross-storage'
   export default {
     data() {
       return {
         isActive: false,
         userInfo: {},
+        centerRouters: [
+          [
+            {url: 'http://172.16.9.25:8100/', imgSrc: 'static/img/menu/sales_center.png', name: '销售中心'},
+            {url: 'http://172.16.9.25:8106/', imgSrc: 'static/img/menu/product_center.png', name: '产品中心'},
+            {url: 'http://172.16.9.25:8105/', imgSrc: 'static/img/menu/supporter_manage_center.png', name: '供应商管理中心'},
+            {url: 'http://172.16.9.25:8103/', imgSrc: 'static/img/menu/foreign_service_center.png', name: '客服中心'},
+            {url: 'http://172.16.9.25:8101/', imgSrc: 'static/img/menu/foreign_employee_center.png', name: '雇员中心'},
+          ],
+          [
+            {url: 'http://172.16.9.25:8108/#/main/', imgSrc: 'static/img/menu/foreign_support_center.png', name: '外企支持中心'},
+            {url: 'http://172.16.9.25:8109/#/', imgSrc: 'static/img/menu/proxy_center.png', name: '代理中心'},
+            {url: 'http://172.16.9.25:8107/dic_list', imgSrc: 'static/img/menu/foreign_control_center.png', name: '外企内控中心'},
+            {url: 'http://172.16.9.25:8112/#/', imgSrc: 'static/img/menu/finance_advisory_business_center.png', name: '财务咨询业务中心'},
+            {url: 'http://172.16.9.25:8113/#/', imgSrc: 'static/img/menu/finance_advisory_operator_center.png', name: '财务咨询运营中心'},
+          ],
+          [
+            {url: 'http://172.16.9.25:8104/', imgSrc: 'static/img/menu/service_outsourcing_business_center.png', name: '服务外包业务中心'},
+            {url: 'http://172.16.9.25:8110/#/', imgSrc: 'static/img/menu/bill_center.png', name: '账单中心'},
+            {url: 'http://172.16.9.25:8111/#/', imgSrc: 'static/img/menu/settlement_center.png', name: '结算中心'},
+            {url: '#', imgSrc: 'static/img/menu/finance_advisory_report_center.png', name: '报表中心'},
+            {url: '#', imgSrc: 'static/img/menu/business_intelligence_center.png', name: '商业智能中心'},
+          ],
+        ],
         taskList: [
           {label: "雇员预录用-预增", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
           {label: "雇员预录用-发放offer", url: "http://172.16.9.25:8101/workOrder/main/preEmploy"},
@@ -76,28 +87,62 @@
         ]
       }
     },
-    created() {
-
-    },
-    watch: {
-
-    },
     mounted() {
-      this.userInfo = this.$local.get('userInfo')
-      console.log(JSON.stringify(this.userInfo))
-    },
-    computed: {
-
+      this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+      const currentEnv = this.getBasePath(process.env.env)
+      CrossStorageHub.init([
+        {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
+      ])
     },
     methods: {
-      backToLogin() {
-        this.$router.push({name: "login"})
+      setToken(url) {
+        let that = this
+        const currentEnv = this.getBasePath(process.env.env)
+        let storage = new CrossStorageClient(`${currentEnv.basePath}:9005/#/menu`)
+        storage.onConnect().then(() => {
+          setTimeout(() => {
+            window.location.href = url
+          }, 500)
+          return storage.set('token', that.userInfo.token)
+        }).catch(function(err) {
+          console.log(err);
+        })
+      },
+      getBasePath(env) {
+        let basePath = ''
+        let originReg
+        switch (env) {
+          case 'dev':
+            basePath = 'http://localhost'
+            originReg = /localhost:.*$/
+            break
+          case 'sit':
+            basePath = 'http://172.16.9.24'
+            originReg = /172.16.9.24:.*$/
+            break
+          case 'uat':
+            basePath = 'http://172.16.9.60'
+            originReg = /172.16.9.60:.*$/
+            break
+          case 'prod':
+            basePath = 'http://172.16.9.60'
+            originReg = /172.16.9.60:.*$/
+            break
+          default:
+            basePath = 'http://localhost'
+            originReg = /localhost:.*$/
+            break
+        }
+        return {basePath: basePath, originReg: originReg}
       },
       openMessageBox() {
         this.$Notice.open({
           desc: '<div style="max-height: 100px; overflow-y: auto;"><h3>标题1</h3><p>我是标题1的内容</p><br/><h3>标题2</h3><p>我是标题2的内容</p><br/><h3>标题3</h3><p>我是标题3的内容</p></div>',
           duration: 0
         });
+      },
+      backToLogin() {
+        this.$router.go(-1)
       }
     }
   }
