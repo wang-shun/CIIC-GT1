@@ -98,7 +98,7 @@
       setToken(url) {
         let that = this
         const currentEnv = this.getBasePath(process.env.env)
-        let storage = new CrossStorageClient(`${currentEnv.basePath}:9005/#/menu`)
+        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
         storage.onConnect().then(() => {
           setTimeout(() => {
             window.location.href = url
@@ -118,7 +118,7 @@
             break
           case 'sit':
             basePath = 'http://172.16.9.25'
-            originReg = /172.16.9.24:.*$/
+            originReg = /172.16.9.25:.*$/
             break
           case 'uat':
             basePath = 'http://172.16.9.60'
