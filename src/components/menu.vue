@@ -3,7 +3,7 @@
     <div class="menuContent">
       <ul v-for="(centerRouter, index) in centerRouters" :key="index">
         <li v-for="(row, index) in centerRouter" :key="index">
-          <a @click="setToken(row.url)">
+          <a @click="validateToken(row.url)">
             <img :src="row.imgSrc" />
             <p>{{row.name}}</p>
           </a>
@@ -29,7 +29,7 @@
             <a href="javascript:;">站内信</a>
             <a href="javascript:;">用户手册</a>
             <a href="javascript:;">修改密码</a>
-            <a href="javascript:;" @click="setToken">退出登录</a>
+            <a href="javascript:;" @click="logout">退出登录</a>
           </div>
         </Poptip >
       </div>
@@ -37,6 +37,7 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
   import {CrossStorageClient, CrossStorageHub} from 'cross-storage'
   export default {
     data() {
@@ -95,45 +96,78 @@
       ])
     },
     methods: {
-      setToken(url) {
+      validateToken(url) {
+        const that = this
+        let param = new URLSearchParams()
+        param.append("token", that.userInfo.token)
+        axios({
+          method: "POST",
+          url: `${this.getBasePath(process.env.env).serverPath}/api/getUserInfoByToken`,
+          data: param,
+        }).then(response => {
+          if(response.data.code !== 0) {
+            this.backToLogin()
+            return
+          } else {
+            that.setCrossToken(url)
+          }
+        })
+      },
+      setCrossToken(url) {
         let that = this
         const currentEnv = this.getBasePath(process.env.env)
         let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
         storage.onConnect().then(() => {
-          setTimeout(() => {
-            window.location.href = url
-          }, 500)
+          window.location.href = url
           return storage.set('token', that.userInfo.token)
+        }).catch(function(err) {
+          console.log(err);
+        })
+      },
+      logout() {
+        window.localStorage.removeItem('userInfo')
+        let that = this
+        const currentEnv = this.getBasePath(process.env.env)
+        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
+        storage.onConnect().then(() => {
+          that.backToLogin()
+          return storage.clear()
         }).catch(function(err) {
           console.log(err);
         })
       },
       getBasePath(env) {
         let basePath = ''
+        let serverPath = ''
         let originReg
         switch (env) {
           case 'dev':
             basePath = 'http://localhost'
+            serverPath = 'http://localhost'
             originReg = /localhost:.*$/
             break
           case 'sit':
             basePath = 'http://172.16.9.25'
+            serverPath = 'http://172.16.9.24'
             originReg = /172.16.9.25:.*$/
             break
           case 'uat':
             basePath = 'http://172.16.9.60'
+            serverPath = 'http://172.16.9.60'
             originReg = /172.16.9.60:.*$/
             break
           case 'prod':
             basePath = 'http://172.16.9.60'
+            serverPath = 'http://172.16.9.60'
             originReg = /172.16.9.60:.*$/
             break
           default:
             basePath = 'http://localhost'
+            serverPath = 'http://localhost'
             originReg = /localhost:.*$/
             break
         }
-        return {basePath: basePath, originReg: originReg}
+        return {basePath: basePath, serverPath: `${serverPath}:9621`, originReg: originReg}
       },
       openMessageBox() {
         this.$Notice.open({
