@@ -78,7 +78,7 @@
             basePath = 'http://172.16.9.24'
             break
           case 'uat':
-            basePath = 'http://172.16.9.60'
+            basePath = 'http://172.16.9.56'
             break
           case 'prod':
             basePath = 'http://172.16.9.60'

@@ -153,7 +153,7 @@
             break
           case 'uat':
             basePath = 'http://172.16.9.60'
-            serverPath = 'http://172.16.9.60'
+            serverPath = 'http://172.16.9.56'
             originReg = /172.16.9.60:.*$/
             break
           case 'prod':
@@ -176,7 +176,7 @@
         });
       },
       backToLogin() {
-        this.$router.go(-1)
+        this.$router.push('/')
       }
     }
   }
