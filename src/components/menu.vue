@@ -119,7 +119,7 @@
         let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
         storage.onConnect().then(() => {
           window.location.href = url
-          return storage.set('token', that.userInfo.token)
+          return storage.set('token', JSON.stringify(that.userInfo))
         }).catch(function(err) {
           console.log(err);
         })
