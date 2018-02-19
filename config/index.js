@@ -5,6 +5,9 @@ let env
 if (buildParam) {
   let envParam = buildParam[0]
   switch (envParam) {
+    case 'dev':
+      env = require('./dev.env')
+      break;
     case 'sit':
       env = require('./sit.env')
       break;
