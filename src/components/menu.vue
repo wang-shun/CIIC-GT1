@@ -143,7 +143,7 @@
         switch (env) {
           case 'dev':
             basePath = 'http://localhost'
-            serverPath = 'http://localhost'
+            serverPath = 'http://172.16.9.31'
             originReg = /localhost:.*$/
             break
           case 'sit':
@@ -163,7 +163,7 @@
             break
           default:
             basePath = 'http://localhost'
-            serverPath = 'http://localhost'
+            serverPath = 'http://172.16.9.31'
             originReg = /localhost:.*$/
             break
         }

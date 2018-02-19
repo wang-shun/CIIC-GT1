@@ -72,7 +72,7 @@
         let basePath = ''
         switch (env) {
           case 'dev':
-            basePath = 'http://localhost'
+            basePath = 'http://172.16.9.31'
             break
           case 'sit':
             basePath = 'http://172.16.9.24'
