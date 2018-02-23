@@ -55,7 +55,7 @@
           [
             {url: `${this.getBasePath(process.env.env).basePath}:8108/#/main/`, imgSrc: 'static/img/menu/foreign_support_center.png', name: '外企支持中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8109/#/`, imgSrc: 'static/img/menu/proxy_center.png', name: '代理中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8107/dic_list`, imgSrc: 'static/img/menu/foreign_control_center.png', name: '外企内控中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8107/#/`, imgSrc: 'static/img/menu/foreign_control_center.png', name: '外企内控中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8112/#/`, imgSrc: 'static/img/menu/finance_advisory_business_center.png', name: '财务咨询业务中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8113/#/`, imgSrc: 'static/img/menu/finance_advisory_operator_center.png', name: '财务咨询运营中心'},
           ],
