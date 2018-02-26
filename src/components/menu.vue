@@ -28,7 +28,7 @@
             </div>
             <a href="javascript:;">站内信</a>
             <a href="javascript:;">用户手册</a>
-            <a href="javascript:;">修改密码</a>
+            <a href="javascript:;" @click="resetPassword">修改密码</a>
             <a href="javascript:;" @click="logout">退出登录</a>
           </div>
         </Poptip >
@@ -135,6 +135,9 @@
         }).catch(function(err) {
           console.log(err);
         })
+      },
+      resetPassword() {
+        this.$router.push('changePassword');
       },
       getBasePath(env) {
         let basePath = '';

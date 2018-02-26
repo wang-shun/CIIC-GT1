@@ -11,10 +11,10 @@
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
       <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin">登录</button>
       <div class="mt40">
-        <CheckboxGroup class="width50 fl">
-          <Checkbox label="记住密码"></Checkbox>
-        </CheckboxGroup>
-        <a href="javascript:;">忘记密码</a>
+        <!--<CheckboxGroup class="width50 fl">-->
+          <!--<Checkbox label="记住密码" v-model="isRememberPassword"></Checkbox>-->
+        <!--</CheckboxGroup>-->
+        <a href="javascript:;">忘记密码?</a>
       </div>
     </div>
   </div>
@@ -33,7 +33,8 @@
           passwordRule: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/ //6-21字母和数字组成
         },
         nameIsRight: true,
-        passwordIsRight: true
+        passwordIsRight: true,
+        isRememberPassword: true
       }
     },
     methods: {
