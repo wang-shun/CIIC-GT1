@@ -234,29 +234,10 @@
     padding: 5px 10px;
   }
 
-  @-webkit-keyframes neon2 {
-    from {
-      box-shadow: inset 0 0 1px  #5cadff,
-                  inset 0 0 5px  #5cadff,
-                  inset 0 0 10px #5cadff,
-                  inset 0 0 15px #c9e3fe,
-                  inset 0 0 20px #b6dafe,
-                  inset 0 0 25px #a3d1ff,
-                  inset 0 0 30px #8cc5ff,
-                  inset 0 0 35px #5cadff;
-    }
-    to {
-      box-shadow: inset 0 0 35px #5cadff,
-                  inset 0 0 30px #8cc5ff,
-                  inset 0 0 25px #a3d1ff,
-                  inset 0 0 20px #b6dafe,
-                  inset 0 0 15px #c9e3fe,
-                  inset 0 0 10px #daecfe,
-                  inset 0 0 5px  #ecf5ff,
-                  inset 0 0 1px  #fafcff;
-    }
+  @keyframes neon2 {
+    from {box-shadow: inset 0 0 10px #5cadff;}
+    to {box-shadow: inset 0 0 50px #b6dafe;}
   }
-
 
   @keyframes changeToHeight {
     from {height: 0;}
