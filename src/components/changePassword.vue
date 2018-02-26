@@ -5,17 +5,11 @@
       <div class="blueLine"></div>
     </div>
     <div class="formContent">
-      <input type="text" v-model.trim="loginValidate.name" @blur="validateName" placeholder="用户名" autofocus />
-      <p class="error" v-show="!nameIsRight">用户名格式错误</p>
+      <input type="text" v-model.trim="passwordValidate.origin" @blur="validateName" placeholder="原密码" autofocus />
+      <p class="error" v-show="!originIsRight">密码格式错误</p>
       <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" />
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
-      <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin">登录</button>
-      <div class="mt40">
-        <CheckboxGroup class="width50 fl">
-          <Checkbox label="记住密码"></Checkbox>
-        </CheckboxGroup>
-        <a href="javascript:;">忘记密码</a>
-      </div>
+      <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="">确定</button>
     </div>
   </div>
 </template>
@@ -24,24 +18,32 @@
   export default {
     data() {
       return {
-        loginValidate: {
-          name: '',
-          password: '',
+        passwordValidate: {
+          origin: '',
+          new: '',
+          comfirm: ''
         },
-        loginRule: {
-          nameRule: /^[a-zA-Z0-9_-]{4,16}$/, //用户名正则，4到16位(字母，数字，下划线，减号)
+        passwordRule: {
           passwordRule: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/ //6-21字母和数字组成
         },
-        nameIsRight: true,
-        passwordIsRight: true
+        originIsRight: true,
+        newIsRight: true,
+        comfirmIsRight: true
       }
     },
     methods: {
-      validateName() {
-        this.nameIsRight = this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
-      },
-      validatePassword() {
-        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+      validatePassword(type) {
+        switch (type) {
+          case 'origin':
+            this.origin = this.passwordValidate.origin === "" ? true : this.passwordRule.passwordRule.test(this.passwordValidate.origin);
+            break;
+          case 'new':
+            this.origin = this.passwordValidate.new === "" ? true : this.passwordRule.passwordRule.test(this.passwordValidate.new);
+            break;
+          case 'comfirm':
+            this.origin = this.passwordValidate.comfirm === "" ? true : this.passwordRule.passwordRule.test(this.passwordValidate.comfirm);
+            break;
+        }
       },
       handleLogin() {
         let data = {

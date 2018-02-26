@@ -97,74 +97,74 @@
     },
     methods: {
       validateToken(url) {
-        const that = this
-        let param = new URLSearchParams()
-        param.append("token", that.userInfo.token)
+        const that = this;
+        let param = new URLSearchParams();
+        param.append("token", that.userInfo.token);
         axios({
           method: "POST",
           url: `${this.getBasePath(process.env.env).serverPath}/api/getUserInfoByToken`,
           data: param,
         }).then(response => {
           if(response.data.code !== 0) {
-            this.backToLogin()
-            return
+            this.backToLogin();
+            return;
           } else {
             that.setCrossToken(url)
           }
         })
       },
       setCrossToken(url) {
-        let that = this
-        const currentEnv = this.getBasePath(process.env.env)
-        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
+        let that = this;
+        const currentEnv = this.getBasePath(process.env.env);
+        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
         storage.onConnect().then(() => {
-          window.location.href = url
-          return storage.set('token', JSON.stringify(that.userInfo))
+          window.location.href = url;
+          return storage.set('token', JSON.stringify(that.userInfo));
         }).catch(function(err) {
-          console.log(err);
+          this.backToLogin();
         })
       },
       logout() {
-        window.localStorage.removeItem('userInfo')
-        let that = this
-        const currentEnv = this.getBasePath(process.env.env)
-        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`)
+        window.localStorage.removeItem('userInfo');
+        let that = this;
+        const currentEnv = this.getBasePath(process.env.env);
+        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
         storage.onConnect().then(() => {
-          that.backToLogin()
+          that.backToLogin();
           return storage.clear()
         }).catch(function(err) {
           console.log(err);
         })
       },
       getBasePath(env) {
-        let basePath = ''
-        let serverPath = ''
-        let originReg
+        let basePath = '';
+        let serverPath = '';
+        let originReg;
         switch (env) {
           case 'dev':
-            basePath = 'http://localhost'
-            serverPath = 'http://172.16.9.31'
-            originReg = /localhost:.*$/
+            basePath = 'http://localhost';
+            serverPath = 'http://172.16.9.31';
+            originReg = /localhost:.*$/;
             break
           case 'sit':
-            basePath = 'http://172.16.9.25'
-            serverPath = 'http://172.16.9.24'
-            originReg = /172.16.9.25:.*$/
+            basePath = 'http://172.16.9.25';
+            serverPath = 'http://172.16.9.24';
+            originReg = /172.16.9.25:.*$/;
             break
           case 'uat':
-            basePath = 'http://172.16.9.60'
-            serverPath = 'http://172.16.9.56'
-            originReg = /172.16.9.60:.*$/
+            basePath = 'http://172.16.9.60';
+            serverPath = 'http://172.16.9.56';
+            originReg = /172.16.9.60:.*$/;
             break
           case 'prod':
-            basePath = 'http://172.16.9.60'
-            serverPath = 'http://172.16.9.60'
-            originReg = /172.16.9.60:.*$/
+            basePath = 'http://172.16.9.60';
+            serverPath = 'http://172.16.9.60';
+            originReg = /172.16.9.60:.*$/;
             break
           default:
-            basePath = 'http://localhost'
-            serverPath = 'http://172.16.9.31'
-            originReg = /localhost:.*$/
+            basePath = 'http://localhost';
+            serverPath = 'http://172.16.9.31';
+            originReg = /localhost:.*$/;
             break
         }
         return {basePath: basePath, serverPath: `${serverPath}:9621`, originReg: originReg}
@@ -217,7 +217,7 @@
   .menuContent ul:nth-child(3) li:last-child {border-right: 1px solid #ccc;}
 
   .menuContent > ul > li {display: block; width: 20%; float: left; border-right: 1px solid #ccc; position: relative;}
-  .menuContent > ul > li:hover {border: none; animation: neon2 2s infinite linear alternate;}
+  .menuContent > ul > li:hover {animation: neon2 2s infinite linear alternate;}
   .menuContent > ul > li:last-child {border-right: 0;}
   .menuContent > ul > li a {text-align: center; display: inline-block; width: 100%; height: 100%; padding: 10% 16%;}
   .menuContent > ul > li a img {width: 76%;}
