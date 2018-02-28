@@ -89,8 +89,8 @@
       }
     },
     mounted() {
-      this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
-      const currentEnv = this.getBasePath(process.env.env)
+      this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+      const currentEnv = this.getBasePath(process.env.env);
       CrossStorageHub.init([
         {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
       ])

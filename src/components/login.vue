@@ -37,6 +37,18 @@
         isRememberPassword: true
       }
     },
+    mounted() {
+//      const href = window.location.href;
+//      let hasQuestionMark = href.indexOf('?');
+//      if (hasQuestionMark !== -1) {
+//        let params = this.analisyParams(href.substring(hasQuestionMark).replace('?', ''));
+//        if (Array.isArray(params)) {
+//
+//        } else {
+//          this.$Message.error('登录超时，请重新登录');
+//        }
+//      }
+    },
     methods: {
       validateName() {
         this.nameIsRight = this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
@@ -86,6 +98,31 @@
             break;
         }
         return `${basePath}:9621/api`;
+      },
+      analisyParams(params) {
+        const hasAndMark = params.indexOf('&');
+        let paramsArr = [];
+        if (hasAndMark !== -1) {
+          paramsArr = hasAndMark.split('&');
+          paramsArr.forEach((param, index, arr) => {
+            const hasQuestionMark = param.indexOf('=');
+            if (hasQuestionMark !== -1) {
+              const tmpArr = param.split('=');
+              let tmpObj = {};
+              tmpObj[tmpArr[0]] = tmpArr[1]
+              paramsArr[index] = tmpObj;
+            }
+          })
+        } else {
+          const hasQuestionMark = params.indexOf('=');
+          if (hasQuestionMark !== -1) {
+            paramsArr = params.split('=');
+            let tmpObj = {};
+            tmpObj[paramsArr[0]] = paramsArr[1];
+            paramsArr = tmpObj;
+          }
+        }
+        return paramsArr;
       }
     }
   }
