@@ -41,21 +41,19 @@ router.beforeEach((to,from,next) => {
     }).then(response => {
       if(response.data.code !== 0) {
         backToLogin();
-        return;
       }
     });
   } else {
     backToLogin();
-    return;
   }
 
   window.document.title ="高铁一号线";
-    localStorage.setItem('level1',to.meta.level1);
-    localStorage.setItem('level2',to.meta.level2);
-    localStorage.setItem('level3',to.meta.level3);
-    localStorage.setItem('level4',to.meta.level4);
-    localStorage.setItem("openNames",[to.meta.openNames]);
-    next();
+  localStorage.setItem('level1',to.meta.level1);
+  localStorage.setItem('level2',to.meta.level2);
+  localStorage.setItem('level3',to.meta.level3);
+  localStorage.setItem('level4',to.meta.level4);
+  localStorage.setItem("openNames",[to.meta.openNames]);
+  next();
 });
 
 function backToLogin() {

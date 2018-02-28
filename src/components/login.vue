@@ -21,6 +21,7 @@
 </template>
 <script>
   import axios from 'axios'
+
   export default {
     data() {
       return {
@@ -99,31 +100,31 @@
         }
         return `${basePath}:9621/api`;
       },
-      analisyParams(params) {
-        const hasAndMark = params.indexOf('&');
-        let paramsArr = [];
-        if (hasAndMark !== -1) {
-          paramsArr = hasAndMark.split('&');
-          paramsArr.forEach((param, index, arr) => {
-            const hasQuestionMark = param.indexOf('=');
-            if (hasQuestionMark !== -1) {
-              const tmpArr = param.split('=');
-              let tmpObj = {};
-              tmpObj[tmpArr[0]] = tmpArr[1]
-              paramsArr[index] = tmpObj;
-            }
-          })
-        } else {
-          const hasQuestionMark = params.indexOf('=');
-          if (hasQuestionMark !== -1) {
-            paramsArr = params.split('=');
-            let tmpObj = {};
-            tmpObj[paramsArr[0]] = paramsArr[1];
-            paramsArr = tmpObj;
-          }
-        }
-        return paramsArr;
-      }
+//      analisyParams(params) {
+//        const hasAndMark = params.indexOf('&');
+//        let paramsArr = [];
+//        if (hasAndMark !== -1) {
+//          paramsArr = hasAndMark.split('&');
+//          paramsArr.forEach((param, index, arr) => {
+//            const hasQuestionMark = param.indexOf('=');
+//            if (hasQuestionMark !== -1) {
+//              const tmpArr = param.split('=');
+//              let tmpObj = {};
+//              tmpObj[tmpArr[0]] = tmpArr[1]
+//              paramsArr[index] = tmpObj;
+//            }
+//          })
+//        } else {
+//          const hasQuestionMark = params.indexOf('=');
+//          if (hasQuestionMark !== -1) {
+//            paramsArr = params.split('=');
+//            let tmpObj = {};
+//            tmpObj[paramsArr[0]] = paramsArr[1];
+//            paramsArr = tmpObj;
+//          }
+//        }
+//        return paramsArr;
+//      }
     }
   }
 

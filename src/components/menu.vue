@@ -39,6 +39,7 @@
 <script>
   import axios from 'axios'
   import {CrossStorageClient, CrossStorageHub} from 'cross-storage'
+
   export default {
     data() {
       return {
