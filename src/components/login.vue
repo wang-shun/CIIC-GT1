@@ -5,9 +5,9 @@
       <div class="blueLine"></div>
     </div>
     <div class="formContent">
-      <input type="text" v-model.trim="loginValidate.name" @blur="validateName" placeholder="用户名" autofocus />
+      <input type="text" v-model.trim="loginValidate.name" @blur="validateName" placeholder="用户名" autofocus @keyup.13="handleLogin" />
       <p class="error" v-show="!nameIsRight">用户名格式错误</p>
-      <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" />
+      <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" @keyup.13="handleLogin" />
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
       <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin">登录</button>
       <div class="mt40">
@@ -57,7 +57,7 @@
       validatePassword() {
         this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
       },
-      handleLogin() {
+      handleLogin(event) {
         let data = {
           loginName: this.loginValidate.name,
           password: this.loginValidate.password,
