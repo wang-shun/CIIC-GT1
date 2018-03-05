@@ -9,7 +9,7 @@
       <p class="error" v-show="!nameIsRight">用户名格式错误</p>
       <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" @keyup.13="handleLogin" />
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
-      <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin">登录</button>
+      <button :disabled="!nameIsRight||!passwordIsRight" :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin" style="cursor: pointer;">登录</button>
       <div class="mt40">
         <!--<CheckboxGroup class="width50 fl">-->
           <!--<Checkbox label="记住密码" v-model="isRememberPassword"></Checkbox>-->
@@ -39,16 +39,8 @@
       }
     },
     mounted() {
-//      const href = window.location.href;
-//      let hasQuestionMark = href.indexOf('?');
-//      if (hasQuestionMark !== -1) {
-//        let params = this.analisyParams(href.substring(hasQuestionMark).replace('?', ''));
-//        if (Array.isArray(params)) {
-//
-//        } else {
-//          this.$Message.error('登录超时，请重新登录');
-//        }
-//      }
+      this.nameIsRight = true;
+      this.passwordIsRight = true;
     },
     methods: {
       validateName() {
