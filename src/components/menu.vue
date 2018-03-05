@@ -62,8 +62,8 @@
           ],
           [
             {url: `${this.getBasePath(process.env.env).basePath}:8104/`, imgSrc: 'static/img/menu/service_outsourcing_business_center.png', name: '服务外包业务中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8110/#/`, imgSrc: 'static/img/menu/bill_center.png', name: '账单中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8111/#/`, imgSrc: 'static/img/menu/settlement_center.png', name: '结算中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:6110/#/`, imgSrc: 'static/img/menu/bill_center.png', name: '账单中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:6111/#/`, imgSrc: 'static/img/menu/settlement_center.png', name: '结算中心'},
             {url: '#', imgSrc: 'static/img/menu/finance_advisory_report_center.png', name: '报表中心'},
             {url: '#', imgSrc: 'static/img/menu/business_intelligence_center.png', name: '商业智能中心'},
           ],
