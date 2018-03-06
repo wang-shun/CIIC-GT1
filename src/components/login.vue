@@ -30,8 +30,8 @@
           password: '',
         },
         loginRule: {
-          nameRule: /^[a-zA-Z0-9_-]{4,16}$/, //用户名正则，4到16位(字母，数字，下划线，减号)
-          passwordRule: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/ //6-21字母和数字组成
+          nameRule: /^[a-zA-Z0-9_-]{4,16}$/, // 用户名正则，4到16位(字母，数字，下划线，减号)
+          passwordRule: /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,21}$/ // 21位数字和字母、特殊字符
         },
         nameIsRight: true,
         passwordIsRight: true,
