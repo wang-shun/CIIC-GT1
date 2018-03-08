@@ -119,7 +119,7 @@
       getMenuAuth(url) {
         axios({
           method: "GET",
-          url: `${this.getBasePath(process.env.env).serverPath}:2003/api/authservice/auth/getPlatformAuth/${this.userInfo.userId}`,
+          url: `${this.getBasePath(process.env.env).basePath}:2003/api/authservice/auth/getPlatformAuth/${this.userInfo.userId}`,
         }).then(response => {
           if(response.data.code !== 0) {
             this.backToLogin();

@@ -74,7 +74,7 @@ function getBasePath(env) {
       break;
     case 'uat':
       basePath = 'http://172.16.9.60';
-      serverPath = 'http://172.16.9.60';
+      serverPath = 'http://172.16.9.56';
       break;
     case 'prod':
       basePath = 'http://172.16.9.60';

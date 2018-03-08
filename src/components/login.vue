@@ -84,7 +84,7 @@
             basePath = 'http://172.16.9.56';
             break;
           case 'prod':
-            basePath = 'http://172.16.9.60';
+            basePath = 'http://172.16.9.56';
             break;
           default:
             basePath = 'http://localhost';
