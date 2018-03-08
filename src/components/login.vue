@@ -47,7 +47,8 @@
         this.nameIsRight = this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
       },
       validatePassword() {
-        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+        this.passwordIsRight = true;
+//        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
       },
       handleLogin(event) {
         let data = {
