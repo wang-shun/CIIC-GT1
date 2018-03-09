@@ -105,7 +105,7 @@
         param.append("token", that.userInfo.token);
         axios({
           method: "POST",
-          url: `${this.getBasePath(process.env.env).serverPath}:9621/api/getUserInfoByToken`,
+          url: `${this.getBasePath(process.env.env).commonServerPath}:9621/api/getUserInfoByToken`,
           data: param,
         }).then(response => {
           if(response.data.code !== 0) {
@@ -119,7 +119,7 @@
       getMenuAuth(url) {
         axios({
           method: "GET",
-          url: `${this.getBasePath(process.env.env).basePath}:2003/api/authservice/auth/getPlatformAuth/${this.userInfo.userId}`,
+          url: `${this.getBasePath(process.env.env).businessServerPath}:2003/api/authservice/auth/getPlatformAuth/${this.userInfo.userId}`,
         }).then(response => {
           if(response.data.code !== 0) {
             this.backToLogin();
@@ -174,36 +174,42 @@
       },
       getBasePath(env) {
         let basePath = '';
-        let serverPath = '';
+        let commonServerPath = '';
+        let businessServerPath = '';
         let originReg;
         switch (env) {
           case 'dev':
             basePath = 'http://localhost';
-            serverPath = 'http://172.16.9.31';
+            commonServerPath = 'http://172.16.9.31';
+            businessServerPath = 'http://172.16.9.31';
             originReg = /localhost:.*$/;
             break
           case 'sit':
             basePath = 'http://172.16.9.25';
-            serverPath = 'http://172.16.9.24';
+            commonServerPath = 'http://172.16.9.24';
+            businessServerPath = 'http://172.16.9.24';
             originReg = /172.16.9.25:.*$/;
             break
           case 'uat':
             basePath = 'http://172.16.9.60';
-            serverPath = 'http://172.16.9.56';
+            commonServerPath = 'http://172.16.9.56';
+            businessServerPath = 'http://172.16.9.60';
             originReg = /172.16.9.60:.*$/;
             break
           case 'prod':
             basePath = 'http://172.16.9.60';
-            serverPath = 'http://172.16.9.60';
+            commonServerPath = 'http://172.16.9.56';
+            businessServerPath = 'http://172.16.9.60';
             originReg = /172.16.9.60:.*$/;
             break
           default:
             basePath = 'http://localhost';
-            serverPath = 'http://172.16.9.31';
+            commonServerPath = 'http://172.16.9.31';
+            businessServerPath = 'http://172.16.9.31';
             originReg = /localhost:.*$/;
             break
         }
-        return {basePath: basePath, serverPath: `${serverPath}`, originReg: originReg}
+        return {basePath: basePath, commonServerPath: commonServerPath, businessServerPath: businessServerPath, originReg: originReg}
       },
       openMessageBox() {
         this.$Notice.open({
