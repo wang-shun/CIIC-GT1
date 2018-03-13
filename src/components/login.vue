@@ -67,7 +67,7 @@
               this.$router.push({name: 'menu'});
               break;
             default:
-              this.$Message.error('用户名或密码错误');
+              this.$Message.error(response.data.message);
               break;
           }
         })
