@@ -50,7 +50,7 @@
         centerRouters: [
           [
             {url: `${this.getBasePath(process.env.env).basePath}:8100/`, imgSrc: 'static/img/menu/sales_center.png', platformId: '1', name: '销售中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8102/`, imgSrc: 'static/img/menu/product_center.png', platformId: '11', name: '产品中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8106/`, imgSrc: 'static/img/menu/product_center.png', platformId: '11', name: '产品中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8105/`, imgSrc: 'static/img/menu/supporter_manage_center.png', platformId: '14', name: '供应商管理中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8103/`, imgSrc: 'static/img/menu/foreign_service_center.png', platformId: '3', name: '客服中心'},
             {url: `${this.getBasePath(process.env.env).basePath}:8101/`, imgSrc: 'static/img/menu/foreign_employee_center.png', platformId: '5', name: '雇员中心'},
