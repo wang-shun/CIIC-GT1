@@ -1,24 +1,24 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path')
-let buildParam = process.argv.slice(2)
-let env
+var path = require('path');
+let buildParam = process.argv.slice(2);
+let env;
 if (buildParam) {
-  let envParam = buildParam[0]
+  let envParam = buildParam[0];
   switch (envParam) {
     case 'dev':
-      env = require('./dev.env')
+      env = require('./dev.env');
       break;
     case 'sit':
-      env = require('./sit.env')
+      env = require('./sit.env');
       break;
     case 'uat':
-      env = require('./uat.env')
-      break
+      env = require('./uat.env');
+      break;
     default:
-      env = require('./prod.env')
+      env = require('./prod.env');
   }
 } else {
-  env = require('./prod.env')
+  env = require('./prod.env');
 }
 
 module.exports = {
@@ -64,4 +64,4 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
   }
-}
+};

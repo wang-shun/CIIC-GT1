@@ -76,16 +76,16 @@ function getBasePath(env) {
       basePath = 'http://172.16.9.60';
       serverPath = 'http://172.16.9.56';
       break;
-    case 'prod':
-      basePath = 'http://172.16.9.60';
+    case 'prd':
+      basePath = 'http://172.16.100.104';
       serverPath = 'http://172.16.9.60';
       break;
     default:
       basePath = 'http://localhost';
-      serverPath = 'http://172.16.9.31';
+      serverPath = 'http://172.16.100.103';
       break;
   }
-  return {basePath: basePath, serverPath: `${serverPath}:9621`}
+  return {basePath: basePath, serverPath: `${serverPath}:9621`};
 }
 
 export default router;

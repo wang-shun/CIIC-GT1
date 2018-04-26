@@ -14,7 +14,7 @@
         <!--<CheckboxGroup class="width50 fl">-->
           <!--<Checkbox label="记住密码" v-model="isRememberPassword"></Checkbox>-->
         <!--</CheckboxGroup>-->
-        <a href="javascript:;">忘记密码?</a>
+        <!--<a href="javascript:;">忘记密码?</a>-->
       </div>
     </div>
   </div>
@@ -84,8 +84,8 @@
           case 'uat':
             basePath = 'http://172.16.9.56';
             break;
-          case 'prod':
-            basePath = 'http://172.16.9.56';
+          case 'prd':
+            basePath = 'http://172.16.100.103';
             break;
           default:
             basePath = 'http://localhost';
