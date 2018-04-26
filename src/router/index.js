@@ -78,11 +78,11 @@ function getBasePath(env) {
       break;
     case 'prd':
       basePath = 'http://172.16.100.104';
-      serverPath = 'http://172.16.9.60';
+      serverPath = 'http://172.16.100.103';
       break;
     default:
       basePath = 'http://localhost';
-      serverPath = 'http://172.16.100.103';
+      serverPath = 'http://localhost';
       break;
   }
   return {basePath: basePath, serverPath: `${serverPath}:9621`};
