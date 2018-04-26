@@ -49,23 +49,23 @@
         platformIds: [],
         centerRouters: [
           [
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8100/` : `${this.getBasePath(process.env.env).basePath.salesCenter}`, imgSrc: 'static/img/menu/sales_center.png', platformId: '1', name: '销售中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8106/` : `${this.getBasePath(process.env.env).basePath.productCenter}`, imgSrc: 'static/img/menu/product_center.png', platformId: '11', name: '产品中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8105/` : `${this.getBasePath(process.env.env).basePath.bpoBusinessCenter}`, imgSrc: 'static/img/menu/supporter_manage_center.png', platformId: '14', name: '供应商管理中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8103/` : `${this.getBasePath(process.env.env).basePath.companyCenter}`, imgSrc: 'static/img/menu/foreign_service_center.png', platformId: '3', name: '客服中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8101/` : `${this.getBasePath(process.env.env).basePath.employeeCenter}`, imgSrc: 'static/img/menu/foreign_employee_center.png', platformId: '5', name: '雇员中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8100/`, imgSrc: 'static/img/menu/sales_center.png', platformId: '1', name: '销售中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8106/`, imgSrc: 'static/img/menu/product_center.png', platformId: '11', name: '产品中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8105/`, imgSrc: 'static/img/menu/supporter_manage_center.png', platformId: '14', name: '供应商管理中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8103/`, imgSrc: 'static/img/menu/foreign_service_center.png', platformId: '3', name: '客服中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8101/`, imgSrc: 'static/img/menu/foreign_employee_center.png', platformId: '5', name: '雇员中心'},
           ],
           [
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8108/#/main/` : `${this.getBasePath(process.env.env).basePath.afSupportCenter}`, imgSrc: 'static/img/menu/foreign_support_center.png', platformId: '6', name: '外企支持中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8109/#/` : `${this.getBasePath(process.env.env).basePath.agentCenter}`, imgSrc: 'static/img/menu/proxy_center.png', platformId: '4', name: '代理中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8107/#/` : `${this.getBasePath(process.env.env).basePath.afSystemManageCenter}`, imgSrc: 'static/img/menu/foreign_control_center.png', platformId: '2', name: '外企内控中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8112/#/` : `${this.getBasePath(process.env.env).basePath.fcBusiniessCenter}`, imgSrc: 'static/img/menu/finance_advisory_business_center.png', platformId: '7', name: '财务咨询业务中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8113/#/` : `${this.getBasePath(process.env.env).basePath.fcOperationCenter}`, imgSrc: 'static/img/menu/finance_advisory_operator_center.png', platformId: '9', name: '财务咨询运营中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8108/#/main/`, imgSrc: 'static/img/menu/foreign_support_center.png', platformId: '6', name: '外企支持中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8109/#/`, imgSrc: 'static/img/menu/proxy_center.png', platformId: '4', name: '代理中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8107/#/`, imgSrc: 'static/img/menu/foreign_control_center.png', platformId: '2', name: '外企内控中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8112/#/`, imgSrc: 'static/img/menu/finance_advisory_business_center.png', platformId: '7', name: '财务咨询业务中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8113/#/`, imgSrc: 'static/img/menu/finance_advisory_operator_center.png', platformId: '9', name: '财务咨询运营中心'},
           ],
           [
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8104/` : `${this.getBasePath(process.env.env).basePath.bpo}`, imgSrc: 'static/img/menu/service_outsourcing_business_center.png', platformId: '10', name: '服务外包业务中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8110/#/` : `${this.getBasePath(process.env.env).basePath.billCenter}`, imgSrc: 'static/img/menu/bill_center.png', platformId: '12', name: '账单中心'},
-            {url: process.env.env !== 'prd' ? `${this.getBasePath(process.env.env).basePath}:8111/#/` : `${this.getBasePath(process.env.env).basePath.settlementCenter}`, imgSrc: 'static/img/menu/settlement_center.png', platformId: '13', name: '结算中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8104/`, imgSrc: 'static/img/menu/service_outsourcing_business_center.png', platformId: '10', name: '服务外包业务中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8110/#/`, imgSrc: 'static/img/menu/bill_center.png', platformId: '12', name: '账单中心'},
+            {url: `${this.getBasePath(process.env.env).basePath}:8111/#/`, imgSrc: 'static/img/menu/settlement_center.png', platformId: '13', name: '结算中心'},
             {url: '#', imgSrc: 'static/img/menu/finance_advisory_report_center.png', platformId: '8', name: '报表中心'},
             {url: '#', imgSrc: 'static/img/menu/business_intelligence_center.png', platformId: '15', name: '商业智能中心'},
           ],
@@ -200,24 +200,9 @@
             originReg = /172.16.9.60:.*$/;
             break
           case 'prd':
-            const prdPath = {
-              salesCenter: 'http://172.16.100.104:8100',
-              afSystemManageCenter: 'http://172.16.9.104:8107/#/',
-              companyCenter: 'http://172.16.100.104:8103/',
-              agentCenter: 'http://172.16.31.100:8109',
-              employeeCenter: 'http://172.16.9.104:8101',
-              afSupportCenter: 'http://172.16.100.104:8108',
-              fcBusiniessCenter: '#',
-              fcOperationCenter: 'http://172.16.100.104:8113',
-              bpo: '#',
-              productCenter: 'http://172.16.100.104:8106',
-              billCenter: 'http://172.16.100.104:8110',
-              settlementCenter: 'http://172.16.100.104:8111',
-              bpoBusinessCenter: 'http://172.16.100.104:8105'
-            };
-            basePath = prdPath;
+            basePath = 'http://172.16.100.104';
             commonServerPath = 'http://172.16.100.103';
-            businessServerPath = 'http://172.16.9.105';
+            businessServerPath = 'http://172.16.100.105';
             originReg = /172.16.100.104:.*$/;
             break;
           default:
