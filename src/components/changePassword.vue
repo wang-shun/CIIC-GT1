@@ -29,7 +29,7 @@
           comfirm: ''
         },
         passwordRule: {
-          passwordRule: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,21}$/ //6-21字母和数字组成
+          passwordRule: /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,21}$/ //6-21字母和数字组成
         },
         originIsRight: true,
         newIsRight: true,
