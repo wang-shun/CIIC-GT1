@@ -9,5 +9,7 @@ yarn-error.log*
 .idea/modules.xml
 .idea/misc.xml
 .idea/ZorroLeopardPortal.iml
+.idea
 *.iml
 .gitignore
+.idea/inspectionProfiles/Project_Default.xml

@@ -21,13 +21,13 @@
             </a>
           </Badge>
           <div class="mylist" slot="content">
-            <a href="http://172.16.9.25:8100/#/pending_approves">我的审批</a>
+            <!-- <a href="http://172.16.9.25:8100/#/pending_approves">我的审批</a>
             <a href="javascript:;" @click="isActive = !isActive">我的任务单 {{isActive ? "▲" : "▼"}}</a>
             <div :class="[isActive ? 'changeToH' : 'changeToZ', 'myTaskList']">
               <a :href="task.url" v-for="(task, index) in taskList" :key="index" style="cursor: pointer;">{{task.label}}</a>
             </div>
             <a href="javascript:;">站内信</a>
-            <a href="javascript:;">用户手册</a>
+            <a href="javascript:;">用户手册</a> -->
             <a href="javascript:;" @click="resetPassword">修改密码</a>
             <a href="javascript:;" @click="logout">退出登录</a>
           </div>
