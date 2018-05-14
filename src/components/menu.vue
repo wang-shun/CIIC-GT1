@@ -154,11 +154,14 @@
         let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
         storage.onConnect().then(() => {
           window.location.href = url;
-          return storage.set('token', JSON.stringify(that.userInfo));
+          return storage.set('userInfo', JSON.stringify(that.userInfo));
         }).catch(function(err) {
           console.log(err);
           that.backToLogin();
         })
+        CrossStorageHub.init([
+          {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
+        ]);
       },
       logout() {
         window.localStorage.removeItem('userInfo');
