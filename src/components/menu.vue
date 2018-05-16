@@ -158,22 +158,33 @@
         }).catch(function(err) {
           console.log(err);
           that.backToLogin();
-        })
+        });
         CrossStorageHub.init([
           {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
         ]);
       },
       logout() {
-        window.localStorage.removeItem('userInfo');
-        let that = this;
-        const currentEnv = this.getBasePath(process.env.env);
-        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
-        storage.onConnect().then(() => {
-          that.backToLogin();
-          return storage.clear()
-        }).catch(function(err) {
-          console.log(err);
-        })
+        let data = {
+          token: this.userInfo.token
+        };
+        axios({
+          method: "POST",
+          url: this.getBasePath(process.env.env).commonServerPath + ':9621/api/logout',
+          data: data,
+        }).then(response => {
+          if(response.status == 200) {
+            window.localStorage.clear();
+            let that = this;
+            const currentEnv = this.getBasePath(process.env.env);
+            let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
+            storage.onConnect().then(() => {
+              that.backToLogin();
+              return storage.clear()
+            }).catch(function(err) {
+              console.log(err);
+            })
+          }
+        });
       },
       resetPassword() {
         this.$router.push('changePassword');
