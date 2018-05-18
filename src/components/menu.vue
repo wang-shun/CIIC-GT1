@@ -47,6 +47,7 @@
         userInfo: {},
         clickPlatformId: -1,
         platformIds: [],
+        storage: {},
         centerRouters: [
           [
             {url: `${this.getBasePath(process.env.env).basePath}:8100/`, imgSrc: 'static/img/menu/sales_center.png', platformId: '1', name: '销售中心'},
@@ -94,6 +95,7 @@
     mounted() {
       this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
       const currentEnv = this.getBasePath(process.env.env);
+      this.storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
       CrossStorageHub.init([
         {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
       ]);
@@ -151,10 +153,9 @@
       setCrossToken(url) {
         let that = this;
         const currentEnv = this.getBasePath(process.env.env);
-        let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
-        storage.onConnect().then(() => {
+        that.storage.onConnect().then(() => {
           window.location.href = url;
-          return storage.set('userInfo', JSON.stringify(that.userInfo));
+          return that.storage.set('userInfo', JSON.stringify(that.userInfo));
         }).catch(function(err) {
           console.log(err);
           that.backToLogin();
@@ -175,14 +176,15 @@
           if(response.status == 200) {
             window.localStorage.clear();
             let that = this;
-            const currentEnv = this.getBasePath(process.env.env);
-            let storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
-            storage.onConnect().then(() => {
+            that.storage.onConnect().then(() => {
               that.backToLogin();
-              return storage.clear()
+              return that.storage.clear()
             }).catch(function(err) {
               console.log(err);
-            })
+            });
+            CrossStorageHub.init([
+              {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
+            ]);
           }
         });
       },
