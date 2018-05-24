@@ -1,24 +1,33 @@
+'use strict'
+// Template version: 1.1.3
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path');
-let buildParam = process.argv.slice(2);
+
+const path = require('path');
+
+let buildArgs = process.argv.slice(2);
 let env;
-if (buildParam) {
-  let envParam = buildParam[0];
-  switch (envParam) {
+if (buildArgs && buildArgs.length > 0) {
+  switch (buildArgs[0]) {
     case 'dev':
       env = require('./dev.env');
+      env.env = '"dev"';
       break;
     case 'sit':
       env = require('./sit.env');
+      env.env = '"sit"';
       break;
     case 'uat':
       env = require('./uat.env');
+      env.env = '"uat"';
       break;
     default:
       env = require('./prod.env');
+      env.env = '"prod"';
+      break;
   }
 } else {
-  env = require('./prod.env');
+  env = require('./dev.env');
+  env.env = '"dev"';
 }
 
 module.exports = {

@@ -8,21 +8,17 @@ import Axios from 'axios'
 import VueAxios from 'vue-axios'
 
 import 'iview/dist/styles/iview.css';
-import '../static/css/style.css';   //修改全局樣式
+import '../static/css/style.css';   // 全局样式
+import '../static/css/overwrite.css'; // 行内样式
 
 Vue.config.productionTip = false;
 
 Vue.use(iView);
 Vue.use(VueAxios,Axios);
 
-Vue.prototype.$axios = Axios.create({
-    baseURL: 'http://localhost:9621/api'
-  }
-);
-
 const app = new Vue({
-    router,
-    render: h => h(App)
+  router,
+  render: h => h(App)
 });
 
 app.$mount('#app');

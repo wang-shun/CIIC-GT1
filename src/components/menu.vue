@@ -12,12 +12,12 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <span class="message"><span class="f16">欢迎您！<strong>{{userInfo.displayName}}</strong></span><br/>工号：{{userInfo.employeeNumber}}</span>
+        <span class="message"><span class="f16">欢迎您！<strong>{{userInfo ? userInfo.displayName : ''}}</strong></span><br/>工号：{{userInfo ? userInfo.employeeNumber : ''}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
           <Badge count="0" overflow-count="999">
             <a href="javascript:;" class="icon">
-              <img width="100%" :src="userInfo.headPortrait" alt="" />
+              <img width="100%" :src="userInfo && userInfo.headPortrait ? userInfo.headPortrait : 'static/img/menu/defaultPortal.jpg'" alt="" />
             </a>
           </Badge>
           <div class="mylist" slot="content">
@@ -34,211 +34,96 @@
         </Poptip >
       </div>
     </div>
+
+    <iframe id="crossFrame" class="crossFrame" src="#"></iframe>
   </div>
 </template>
 <script>
-  import axios from 'axios'
-  import {CrossStorageClient, CrossStorageHub} from 'cross-storage'
+  import AJAX from '../assets/js/ajax'
+  import API from '../assets/api/api'
+  import centerRouters from '../assets/data/center_routers'
+
+  const COUNT_OUT = 5;
 
   export default {
     data() {
       return {
         isActive: false,
-        userInfo: {},
+        userInfo: JSON.parse(window.localStorage.getItem('userInfo')),
         clickPlatformId: -1,
-        platformIds: [],
-        storage: {},
-        centerRouters: [
-          [
-            {url: `${this.getBasePath(process.env.env).basePath}:8100/`, imgSrc: 'static/img/menu/sales_center.png', platformId: '1', name: '销售中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8106/`, imgSrc: 'static/img/menu/product_center.png', platformId: '11', name: '产品中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8105/`, imgSrc: 'static/img/menu/supporter_manage_center.png', platformId: '14', name: '供应商管理中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8103/`, imgSrc: 'static/img/menu/foreign_service_center.png', platformId: '3', name: '客服中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8101/`, imgSrc: 'static/img/menu/foreign_employee_center.png', platformId: '5', name: '雇员中心'},
-          ],
-          [
-            {url: `${this.getBasePath(process.env.env).basePath}:8108/#/main/`, imgSrc: 'static/img/menu/foreign_support_center.png', platformId: '6', name: '外企支持中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8109/#/`, imgSrc: 'static/img/menu/proxy_center.png', platformId: '4', name: '代理中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8107/#/`, imgSrc: 'static/img/menu/foreign_control_center.png', platformId: '2', name: '外企内控中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8112/#/`, imgSrc: 'static/img/menu/finance_advisory_business_center.png', platformId: '7', name: '财务咨询业务中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8113/#/`, imgSrc: 'static/img/menu/finance_advisory_operator_center.png', platformId: '9', name: '财务咨询运营中心'},
-          ],
-          [
-            {url: '#', imgSrc: 'static/img/menu/service_outsourcing_business_center.png', platformId: '10', name: '服务外包业务中心'},
-//            {url: `${this.getBasePath(process.env.env).basePath}:8104/`, imgSrc: 'static/img/menu/service_outsourcing_business_center.png', platformId: '10', name: '服务外包业务中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8110/#/`, imgSrc: 'static/img/menu/bill_center.png', platformId: '12', name: '账单中心'},
-            {url: `${this.getBasePath(process.env.env).basePath}:8111/#/`, imgSrc: 'static/img/menu/settlement_center.png', platformId: '13', name: '结算中心'},
-            {url: '#', imgSrc: 'static/img/menu/finance_advisory_report_center.png', platformId: '8', name: '报表中心'},
-            {url: '#', imgSrc: 'static/img/menu/business_intelligence_center.png', platformId: '15', name: '商业智能中心'},
-          ],
-        ],
-        taskList: [
-          {label: "雇员预录用-预增", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员预录用-发放offer", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员预录用-入职体检", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员预录用-背景调查", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员新进-新入职", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员新进-集体转入,无需用工", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-外地社保转上海", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-上海社保转外地", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-翻牌（更改用工单位）", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-上海基数调整", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-外地基数调整", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-暂停缴费", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-恢复缴费", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员终止-离职", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员终止-集体转出，无需退工", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-人员性质转换", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`},
-          {label: "雇员变更-修改用退工信息", url: `${this.getBasePath(process.env.env).basePath}:8101/workOrder/main/preEmploy`}
-        ]
+        platformIds: new Set(),
+        centerRouters: centerRouters,
+        currentGoTo: '',
+        currentApi: '',
+        postMessageInterval: {},
+        postCount: 1
       }
     },
     mounted() {
-      this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
-      const currentEnv = this.getBasePath(process.env.env);
-      this.storage = new CrossStorageClient(`${currentEnv.basePath}:8070/#/menu`);
-      CrossStorageHub.init([
-        {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
-      ]);
+      const _self = this;
+      window.addEventListener('message', function(event) {
+        if (event.data === 'OK') {
+          clearInterval(_self.postMessageInterval);
+          _self.postCount = 1;
+          _self.gotoCenter();
+        }
+      },false);
     },
     methods: {
       validateToken(url) {
-        const that = this;
-        let param = new URLSearchParams();
-        param.append("token", that.userInfo.token);
-        axios({
-          method: "POST",
-          url: `${this.getBasePath(process.env.env).commonServerPath}:9621/api/getUserInfoByToken`,
-          data: param,
-        }).then(response => {
-          if(response.data.code !== 0) {
-            this.backToLogin();
-            return;
-          } else {
-            this.getMenuAuth(url);
-          }
-        }).catch(error => {//加上catch
-          console.log(error);
-        })
+        this.currentGoTo = url;
+        let params = new URLSearchParams();
+        params.append("token", this.userInfo.token);
+        this.currentApi = API.getUserInfoByToken;
+        AJAX(API.getUserInfoByToken, params, 'POST', this.getMenuAuth, this.backToLogin);
       },
-      getMenuAuth(url) {
-        axios({
-          method: "GET",
-          url: `${this.getBasePath(process.env.env).businessServerPath}:2003/api/authservice/auth/getPlatformAuth/${this.userInfo.userId}`,
-        }).then(response => {
-          if(response.data.code !== 0) {
-            this.backToLogin();
-            return;
-          } else {
-            this.platformIds = response.data.data.replace(/\[|\]/g, '').replace(/ /g,'').split(',');
-            if (this.platformIds && this.platformIds.length > 0) {
-              let isCanRoute = false;
-              for (let i = 0, len = this.platformIds.length; i < len; i++) {
-                if (this.platformIds[i] === this.clickPlatformId) {
-                  isCanRoute = true;
-                }
-              }
-              if (isCanRoute) {
-                this.setCrossToken(url);
-              } else {
-                this.$Message.error('没有权限~');
-                return;
-              }
-            } else {
-              this.$Message.error('没有权限~');
-              return;
-            }
-          }
-        })
+      getMenuAuth() {
+        this.currentApi = API.getPlatformAuth;
+        AJAX(`${API.getPlatformAuth}/${this.userInfo.userId}`, {}, 'GET', this.setPlatformIds, this.backToLogin);
       },
-      setCrossToken(url) {
-        let that = this;
-        const currentEnv = this.getBasePath(process.env.env);
-        that.storage.onConnect().then(() => {
-          window.location.href = url;
-          return that.storage.set('userInfo', JSON.stringify(that.userInfo));
-        }).catch(function(err) {
-          console.log(err);
-          that.backToLogin();
-        });
-        CrossStorageHub.init([
-          {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
-        ]);
+      setPlatformIds(platformAuto) {
+        this.platformIds = new Set(platformAuto.data.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','));
+        if (this.platformIds && [...this.platformIds].length > 0) {
+          const isCanRoute = this.platformIds.has(this.clickPlatformId);
+          isCanRoute ? this.postCrossToken() : this.$Message.error('没有权限~');
+        } else {
+          this.$Message.error('没有权限~');
+          return;
+        }
+      },
+      postCrossToken() {
+        const _self = this;
+        document.getElementById('crossFrame').src = _self.currentGoTo;
+        this.postMessageInterval = setInterval(() => {
+          if (_self.postCount >= COUNT_OUT) {
+            clearInterval(_self.postMessageInterval);
+          }
+          window.frames[0].postMessage(JSON.stringify(_self.userInfo), _self.currentGoTo);
+          _self.postCount++;
+        }, 1000);
+      },
+      gotoCenter() {
+        const currentGoto = this.currentGoTo;
+        this.currentGoTo = '';
+        window.location.href = currentGoto;
       },
       logout() {
-        let data = {
-          token: this.userInfo.token
+        const CLEAR_AND_BACK = () => {
+          window.localStorage.clear();
         };
-        axios({
-          method: "POST",
-          url: this.getBasePath(process.env.env).commonServerPath + ':9621/api/logout',
-          data: data,
-        }).then(response => {
-          if(response.status == 200) {
-            window.localStorage.clear();
-            let that = this;
-            that.storage.onConnect().then(() => {
-              that.backToLogin();
-              return that.storage.clear()
-            }).catch(function(err) {
-              console.log(err);
-            });
-            CrossStorageHub.init([
-              {origin: currentEnv.originReg, allow: ['get', 'set', 'del', 'getKeys', 'clear']}
-            ]);
-          }
-        });
+        AJAX(API.logout, {token: this.userInfo.token}, "POST", CLEAR_AND_BACK, () => {});
       },
       resetPassword() {
         this.$router.push('changePassword');
       },
-      getBasePath(env) {
-        let basePath = '';
-        let commonServerPath = '';
-        let businessServerPath = '';
-        let originReg;
-        switch (env) {
-          case 'dev':
-            basePath = 'http://localhost';
-            commonServerPath = 'http://172.16.9.31';
-            businessServerPath = 'http://172.16.9.31';
-            originReg = /localhost:.*$/;
-            break
-          case 'sit':
-            basePath = 'http://172.16.9.25';
-            commonServerPath = 'http://172.16.9.24';
-            businessServerPath = 'http://172.16.9.24';
-            originReg = /172.16.9.25:.*$/;
-            break
-          case 'uat':
-            basePath = 'http://172.16.9.60';
-            commonServerPath = 'http://172.16.9.56';
-            businessServerPath = 'http://172.16.9.60';
-            originReg = /172.16.9.60:.*$/;
-            break
-          case 'prd':
-            basePath = 'http://172.16.100.104';
-            commonServerPath = 'http://172.16.100.103';
-            businessServerPath = 'http://172.16.100.105';
-            originReg = /172.16.100.104:.*$/;
-            break;
-          default:
-            basePath = 'http://localhost';
-            commonServerPath = 'http://172.16.9.31';
-            businessServerPath = 'http://172.16.9.31';
-            originReg = /localhost:.*$/;
-            break
-        }
-        return {basePath: basePath, commonServerPath: commonServerPath, businessServerPath: businessServerPath, originReg: originReg}
+      backToLogin() {
+        this.$router.push('/')
       },
       openMessageBox() {
         this.$Notice.open({
           desc: '<div style="max-height: 100px; overflow-y: auto;"><h3>标题1</h3><p>我是标题1的内容</p><br/><h3>标题2</h3><p>我是标题2的内容</p><br/><h3>标题3</h3><p>我是标题3的内容</p></div>',
           duration: 0
         });
-      },
-      backToLogin() {
-        this.$router.push('/')
       }
     }
   }
@@ -247,7 +132,8 @@
 <style scoped>
   * {margin: 0; padding: 0;}
   html, body {width: 100%; height: 100%; min-height: 100%; overflow: hidden;}
-  .bg {height: 480px; position: relative; z-index: 1; background: #3d6e8a url('../assets/menu-bg.png') no-repeat center top;}
+  .crossFrame {display: none; position: absolute; z-index: 999; top: -999px; left: -999px;}
+  .bg {height: 480px; position: relative; z-index: 1; background: #3d6e8a url('../assets/img/menu-bg.png') no-repeat center top;}
   .f16 {font-size: 16px;}
   .menu {width: 100%; height: 175px;}
   .menu > .menuInfo, .menu > .menuItem {text-align: right; width: 66%; margin: 0 auto;}
@@ -268,9 +154,9 @@
   .changeToZ {animation: changeToZero 0s ease 0s 1 alternate forwards;}
 
   .menuItem a {margin-left: 24px;}
-  .menuItem .email {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/email.png') no-repeat center center;}
-  .menuItem .bag {width: 28px; height: 28px; border-radius: 10px; background: url('../assets/bag.png') no-repeat center center;}
-  .menuItem .help {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/help.png') no-repeat center center;}
+  .menuItem .email {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/img/email.png') no-repeat center center;}
+  .menuItem .bag {width: 28px; height: 28px; border-radius: 10px; background: url('../assets/img/bag.png') no-repeat center center;}
+  .menuItem .help {width: 28px; height: 28px; border-radius: 14px; background: url('../assets/img/help.png') no-repeat center center;}
 
   .menuContent {position: fixed; top: 120px; left: 17%; width: 66%; margin: 0 auto; padding: 1%; box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3); background: white;}
   .menuContent ul {border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; overflow: hidden; margin-top: -1px;}

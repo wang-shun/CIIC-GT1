@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img src="../assets/logo.png">
+      <img src="../assets/img/logo.png">
       <div class="blueLine"></div>
     </div>
     <div class="formContent">
@@ -112,7 +112,7 @@
   .fl {float: left;}
   .width50 {width: 50%;}
   .mt40 {margin-top: 40px;}
-  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/login-bg.jpg') no-repeat fixed top;}
+  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/img/login-bg.jpg') no-repeat fixed top;}
   .logo {padding-top: 124px; text-align: center;}
   .logo > img {margin-bottom: 36px;}
   .logo > .blueLine {width: 400px; height: 12px; margin: 0 auto; background: #348ac9;}

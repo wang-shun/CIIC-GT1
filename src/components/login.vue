@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img src="../assets/logo.png">
+      <img src="../assets/img/logo.png">
       <div class="blueLine"></div>
     </div>
     <div class="formContent">
@@ -11,16 +11,19 @@
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
       <button :style="{opacity: !nameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin" style="cursor: pointer;">登录</button>
       <div class="mt40">
-        <!--<CheckboxGroup class="width50 fl">-->
-          <!--<Checkbox label="记住密码" v-model="isRememberPassword"></Checkbox>-->
-        <!--</CheckboxGroup>-->
-        <!--<a href="javascript:;">忘记密码?</a>-->
+        <div class="w50 fl">
+          <Checkbox v-model="isRememberPassword">记住密码</Checkbox>
+        </div>
+        <div class="w50 fl">
+          <!--<a href="javascript:;">忘记密码?</a>-->
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import axios from 'axios'
+  import AJAX from '../assets/js/ajax'
+  import API from '../assets/api/api'
 
   export default {
     data() {
@@ -31,7 +34,7 @@
         },
         loginRule: {
           nameRule: /^[a-zA-Z0-9_-]{4,16}$/, // 用户名正则，4到16位(字母，数字，下划线，减号)
-          passwordRule: /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,21}$/ // 21位数字和字母、特殊字符
+          passwordRule: /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*]+$)[\da-zA-Z!@#$%^&*]{6,20}$/ // 6-21位数字和字母、特殊字符
         },
         nameIsRight: true,
         passwordIsRight: true,
@@ -47,88 +50,26 @@
         this.nameIsRight = this.loginValidate.name === "" ? true : this.loginRule.nameRule.test(this.loginValidate.name);
       },
       validatePassword() {
-        this.passwordIsRight = true;
-//        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
       },
       handleLogin(event) {
-        let data = {
+        const data = {
           loginName: this.loginValidate.name,
           password: this.loginValidate.password,
           verifyCode: ''
         };
-        axios({
-          method: "POST",
-          url: this.getBasePath(process.env.env) + '/login',
-          data: data,
-        }).then(response => {
-          switch (response.data.code) {
-            case 0:
-              window.localStorage.setItem('userInfo', JSON.stringify(response.data.object));
-              this.$router.push({name: 'menu'});
-              break;
-            default:
-              this.$Message.error(response.data.message);
-              break;
-          }
-        })
+        AJAX(API.login, data, 'POST', this.saveUserInfo);
       },
-      getBasePath(env) {
-        let basePath = '';
-        switch (env) {
-          case 'dev':
-            basePath = 'http://172.16.9.31';
-            break;
-          case 'sit':
-            basePath = 'http://172.16.9.24';
-            break;
-          case 'uat':
-            basePath = 'http://172.16.9.56';
-            break;
-          case 'prd':
-            basePath = 'http://172.16.100.103';
-            break;
-          default:
-            basePath = 'http://localhost';
-            break;
-        }
-        return `${basePath}:9621/api`;
-      },
-//      analisyParams(params) {
-//        const hasAndMark = params.indexOf('&');
-//        let paramsArr = [];
-//        if (hasAndMark !== -1) {
-//          paramsArr = hasAndMark.split('&');
-//          paramsArr.forEach((param, index, arr) => {
-//            const hasQuestionMark = param.indexOf('=');
-//            if (hasQuestionMark !== -1) {
-//              const tmpArr = param.split('=');
-//              let tmpObj = {};
-//              tmpObj[tmpArr[0]] = tmpArr[1]
-//              paramsArr[index] = tmpObj;
-//            }
-//          })
-//        } else {
-//          const hasQuestionMark = params.indexOf('=');
-//          if (hasQuestionMark !== -1) {
-//            paramsArr = params.split('=');
-//            let tmpObj = {};
-//            tmpObj[paramsArr[0]] = paramsArr[1];
-//            paramsArr = tmpObj;
-//          }
-//        }
-//        return paramsArr;
-//      }
+      saveUserInfo(userInfo) {
+        window.localStorage.setItem('userInfo', JSON.stringify(userInfo.data.object));
+        this.$router.push({name: 'menu'});
+      }
     }
   }
-
 </script>
 <style scoped>
-  * {margin: 0; padding: 0;}
-  html, body {width: 100%; height: 100%; min-height: 100%; overflow: hidden;}
-  .fl {float: left;}
-  .width50 {width: 50%;}
-  .mt40 {margin-top: 40px;}
-  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/login-bg.jpg') no-repeat fixed top;}
+
+  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/img/login-bg.jpg') no-repeat fixed top;}
   .logo {padding-top: 124px; text-align: center;}
   .logo > img {margin-bottom: 36px;}
   .logo > .blueLine {width: 400px; height: 12px; margin: 0 auto; background: #348ac9;}

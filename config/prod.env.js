@@ -1,6 +1,8 @@
 module.exports = {
   env: '"prd"',
   NODE_ENV: '"production"',
-  QUERY_HOST: '"http://prodhost:9000"',// 生产环境host
-  COMMAND_HOST: '"http://prodhost:9002"'// 生产环境host
-}
+  HOME_PATH: '"http://172.16.100.104:8070/#/"',
+  BASE_PATH: '"http://172.16.100.104"',
+  COMMON_SERVICE: '"http://172.16.100.103:9621/api"',
+  SYSTEM_MANAGE_API_SERVICE: '"http://172.16.100.105:2003/api"'
+};
