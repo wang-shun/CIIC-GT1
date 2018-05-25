@@ -34,7 +34,7 @@
         },
         loginRule: {
           loginNameRule: /^[a-zA-Z0-9_-]{4,16}$/, // 用户名正则，4到16位(字母，数字，下划线，减号)
-          passwordRule: /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*]+$)[\da-zA-Z!@#$%^&*]{6,20}$/ // 6-21位数字和字母、特殊字符
+          passwordRule: /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*]+$)[\da-zA-Z!@#$%^&*]{6,20}$/ // 6-20位数字和字母、特殊字符
         },
         loginNameIsRight: true,
         passwordIsRight: true,

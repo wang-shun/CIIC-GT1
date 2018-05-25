@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
+  import api from '../assets/api/index'
 
   export default {
     data() {
@@ -29,7 +29,7 @@
           comfirm: ''
         },
         passwordRule: {
-          passwordRule: /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,21}$/ //6-21字母和数字组成
+          passwordRule: /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*]+$)[\da-zA-Z!@#$%^&*]{6,20}$/ // 6-20位数字和字母、特殊字符
         },
         originIsRight: true,
         newIsRight: true,
@@ -60,47 +60,16 @@
           this.$Message.error('两次输入的新密码不一致');
           return;
         }
-        let data = {
+        const data = {
           loginName: this.loginName,
           password: this.passwordValidate.origin,
           newPassword: this.passwordValidate.new
         };
-        axios({
-          method: "POST",
-          url: this.getBasePath(process.env.env) + '/resetPassword',
-          data: data,
-        }).then(response => {
-          switch (response.data.code) {
-            case 0:
-              window.localStorage.setItem('userInfo', JSON.stringify(response.data.object));
-              this.$router.push('/');
-              break;
-            default:
-              this.$Message.error('修改密码失败');
-              break;
-          }
-        })
-      },
-      getBasePath(env) {
-        let basePath = '';
-        switch (env) {
-          case 'dev':
-            basePath = 'http://172.16.9.31';
-            break;
-          case 'sit':
-            basePath = 'http://172.16.9.24';
-            break;
-          case 'uat':
-            basePath = 'http://172.16.9.56';
-            break;
-          case 'prd':
-            basePath = 'http://172.16.100.103';
-            break;
-          default:
-            basePath = 'http://localhost';
-            break;
-        }
-        return `${basePath}:9621/api`;
+        console.log(data);
+        api.resetPassword(data).then(res => {
+          window.localStorage.setItem('userInfo', JSON.stringify(res.data.object));
+          this.$router.push('/');
+        });
       }
     }
   }

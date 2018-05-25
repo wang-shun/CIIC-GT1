@@ -20,7 +20,11 @@ export default {
    */
   getUserInfoByToken: COMMON_SERVICE_HOST + '/getUserInfoByToken',
   /**
+   * 修改密码
+   */
+  resetPassword: COMMON_SERVICE_HOST + '/resetPassword',
+  /**
    * 获取用户可访问中心的权限
    */
-  getPlatformAuth: SYSTEM_MANAGE_API_SERVICE_HOST + '/authservice/auth/getPlatformAuth',
+  getPlatformAuth: SYSTEM_MANAGE_API_SERVICE_HOST + '/authservice/auth/getPlatformAuth'
 }

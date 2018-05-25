@@ -27,6 +27,13 @@ export default {
     return await response.data;
   },
   /**
+   * 修改密码
+   */
+  resetPassword: async (params) => {
+    const response = await Http.post(Interface.resetPassword, params);
+    return await response.data;
+  },
+  /**
    * 获取用户可访问中心的权限
    */
   getPlatformAuth: async (params) => {
