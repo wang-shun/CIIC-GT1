@@ -39,8 +39,7 @@
   </div>
 </template>
 <script>
-  import AJAX from '../assets/js/ajax'
-  import API from '../assets/api/api'
+  import api from '../assets/api/index'
   import centerRouters from '../assets/data/center_routers'
 
   const COUNT_OUT = 5;
@@ -74,20 +73,22 @@
         this.currentGoTo = url;
         let params = new URLSearchParams();
         params.append("token", this.userInfo.token);
-        this.currentApi = API.getUserInfoByToken;
-        AJAX(API.getUserInfoByToken, params, 'POST', this.getMenuAuth, this.backToLogin);
+        api.getUserInfoByToken(params).then(res => {
+          res.code !== 0 ? this.backToLogin() : this.getMenuAuth();
+        });
       },
       getMenuAuth() {
-        this.currentApi = API.getPlatformAuth;
-        AJAX(`${API.getPlatformAuth}/${this.userInfo.userId}`, {}, 'GET', this.setPlatformIds, this.backToLogin);
+        api.getPlatformAuth(this.userInfo.userId).then(res => {
+          res.code !== 0 ? this.backToLogin() : this.setPlatformIds(res);
+        });
       },
       setPlatformIds(platformAuto) {
-        this.platformIds = new Set(platformAuto.data.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','));
+        this.platformIds = new Set(platformAuto.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','));
         if (this.platformIds && [...this.platformIds].length > 0) {
           const isCanRoute = this.platformIds.has(this.clickPlatformId);
-          isCanRoute ? this.postCrossToken() : this.$Message.error('没有权限~');
+          isCanRoute ? this.postCrossToken() : this.$Message.error('没有访问该中心的权限~');
         } else {
-          this.$Message.error('没有权限~');
+          this.$Message.error('没有访问该中心的权限~');
           return;
         }
       },
@@ -110,8 +111,11 @@
       logout() {
         const CLEAR_AND_BACK = () => {
           window.localStorage.clear();
+          this.backToLogin();
         };
-        AJAX(API.logout, {token: this.userInfo.token}, "POST", CLEAR_AND_BACK, () => {});
+        api.logout(this.userInfo.token).then(res => {
+          CLEAR_AND_BACK();
+        });
       },
       resetPassword() {
         this.$router.push('changePassword');
