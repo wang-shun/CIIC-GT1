@@ -97,8 +97,9 @@ export default {
     registeMessageHandle () {
       const _self = this
       window.addEventListener('message', (event) => {
-        const currentGoto = window.localStorage.getItem('currentGoTo').replace('http://', '').replace(/\//g, '')
-        const origin = event.origin.replace('http://', '').replace(/\//g, '')
+        const currentGoto = window.localStorage.getItem('currentGoTo').replace('http://', '').replace(/\//g, '').replace(/#/g, '')
+        const origin = event.origin.replace('http://', '').replace(/\//g, '').replace(/#/g, '')
+        console.log(currentGoto, origin)
         if (currentGoto === origin) {
           const res = JSON.parse(event.data)
           if (res.code === 0) {
