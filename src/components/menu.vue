@@ -99,7 +99,6 @@ export default {
       window.addEventListener('message', (event) => {
         const currentGoto = window.localStorage.getItem('currentGoTo').replace('http://', '').replace(/\//g, '').replace(/#/g, '')
         const origin = event.origin.replace('http://', '').replace(/\//g, '').replace(/#/g, '')
-        console.log(currentGoto, origin)
         if (currentGoto === origin) {
           const res = JSON.parse(event.data)
           if (res.code === 0) {
@@ -129,12 +128,6 @@ export default {
     },
     backToLogin () {
       this.$router.push('/')
-    },
-    openMessageBox () {
-      this.$Notice.open({
-        desc: '<div style="max-height: 100px; overflow-y: auto;"><h3>标题1</h3><p>我是标题1的内容</p><br/><h3>标题2</h3><p>我是标题2的内容</p><br/><h3>标题3</h3><p>我是标题3的内容</p></div>',
-        duration: 0
-      })
     }
   }
 }
