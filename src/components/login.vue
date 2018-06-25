@@ -42,24 +42,25 @@
       }
     },
     mounted() {
-      this.loginNameIsRight = true;
-      this.passwordIsRight = true;
+      this.loginNameIsRight = true
+      this.passwordIsRight = true
+      window.localStorage.clear()
     },
     methods: {
       validateName() {
-        this.loginNameIsRight = this.loginValidate.loginName === "" ? true : this.loginRule.loginNameRule.test(this.loginValidate.loginName);
+        this.loginNameIsRight = this.loginValidate.loginName === "" ? true : this.loginRule.loginNameRule.test(this.loginValidate.loginName)
       },
       validatePassword() {
-        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password);
+        this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password)
       },
       handleLogin() {
         api.login(this.loginValidate).then(res => {
-          this.saveUserInfo(res);
-        });
+          this.saveUserInfo(res)
+        })
       },
       saveUserInfo(userInfo) {
-        window.localStorage.setItem('userInfo', JSON.stringify(userInfo.object));
-        this.$router.push({name: 'menu'});
+        window.localStorage.setItem('userInfo', JSON.stringify(userInfo.object))
+        this.$router.push({name: 'menu'})
       }
     }
   }
