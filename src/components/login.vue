@@ -44,7 +44,6 @@
     mounted() {
       this.loginNameIsRight = true
       this.passwordIsRight = true
-      window.localStorage.clear()
     },
     methods: {
       validateName() {
