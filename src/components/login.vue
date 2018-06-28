@@ -23,6 +23,7 @@
 </template>
 <script>
   import api from '../assets/api/index'
+  import {encryptByDES, decryptByDES} from '../assets/js/cryptojs'
 
   export default {
     data() {
@@ -44,21 +45,42 @@
     mounted() {
       this.loginNameIsRight = true
       this.passwordIsRight = true
+      this.loadLoginInfo()
     },
     methods: {
-      validateName() {
+      loadLoginInfo () {
+        const loginInfo = JSON.parse(window.localStorage.getItem('loginInfo'))
+        if (!this.isRememberPassword || !loginInfo) {
+          return
+        } else {
+          this.loginValidate.loginName = loginInfo.userName
+          this.loginValidate.password = decryptByDES(loginInfo.password)
+          this.loginValidate.verifyCode = loginInfo.verifyCode
+        }
+      },
+      validateName () {
         this.loginNameIsRight = this.loginValidate.loginName === "" ? true : this.loginRule.loginNameRule.test(this.loginValidate.loginName)
       },
-      validatePassword() {
+      validatePassword () {
         this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password)
       },
-      handleLogin() {
+      handleLogin () {
         api.login(this.loginValidate).then(res => {
-          this.saveUserInfo(res)
+          if (res.code === 0) {
+            this.saveUserInfo(JSON.stringify(res.object))
+          }
         })
       },
-      saveUserInfo(userInfo) {
-        window.localStorage.setItem('userInfo', JSON.stringify(userInfo.object))
+      saveUserInfo (userInfo) {
+        window.localStorage.setItem('userInfo', userInfo)
+        if (this.isRememberPassword) {
+          window.localStorage.setItem('loginInfo', JSON.stringify({userName: this.loginValidate.loginName, password: encryptByDES(this.loginValidate.password), verifyCode: ''}))
+        } else {
+          const hasLoginInfo = JSON.parse(window.localStorage.getItem('localStorage')) !== undefined
+          if (hasLoginInfo) {
+            window.localStorage.removeItem('loginInfo')
+          }
+        }
         this.$router.push({name: 'menu'})
       }
     }
