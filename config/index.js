@@ -12,6 +12,10 @@ if (buildArgs && buildArgs.length > 0) {
       env = require('./dev.env');
       env.env = '"dev"';
       break;
+    case 'lpt':
+      env = require('./lpt.env');
+      env.env = '"lpt"';
+      break;
     case 'sit':
       env = require('./sit.env');
       env.env = '"sit"';
