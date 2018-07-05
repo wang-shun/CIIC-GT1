@@ -5,7 +5,7 @@ var merge = require('webpack-merge');
 var prodEnv = require('./prod.env');
 
 module.exports = merge(prodEnv, {
-  env: '"sit"',
+  env: '"lpt"',
   HOME_PATH: '"http://172.16.9.68:8070/#/"',
   BASE_PATH: '"http://172.16.9.68"',
   COMMON_SERVICE: '"http://172.16.9.68:9621/api"',
