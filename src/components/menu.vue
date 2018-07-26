@@ -57,13 +57,22 @@ export default {
       postCount: 1
     }
   },
+  mounted () {
+    this.validateToken()
+  },
   methods: {
     validateToken (url) {
-      window.localStorage.setItem('currentGoTo', url)
       let params = new URLSearchParams()
       params.append("token", this.userInfo.token)
       api.getUserInfoByToken(params).then(res => {
-        res.code !== 0 ? this.backToLogin() : this.getMenuAuth()
+        if (res.code !== 0) {
+          this.backToLogin()
+        } else {
+          if (url) {
+            window.localStorage.setItem('currentGoTo', url)
+            this.getMenuAuth()
+          }
+        }
       })
     },
     getMenuAuth () {

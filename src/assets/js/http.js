@@ -37,7 +37,6 @@ function checkCode (res, _this) {
   if (res.data && (res.data.code !== 0)) {
     let msg = res.data.message;
     _this.$Message.error(msg);
-    throw new Error(msg);
   }
   return res;
 }
