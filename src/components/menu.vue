@@ -69,6 +69,7 @@ export default {
           this.backToLogin()
         } else {
           if (url) {
+            document.getElementById('crossFrame').src = url
             window.localStorage.setItem('currentGoTo', url)
             this.getMenuAuth()
           }
@@ -80,8 +81,8 @@ export default {
         res.code !== 0 ? this.backToLogin() : this.setPlatformIds(res)
       })
     },
-    setPlatformIds (platformAuto) {
-      this.platformIds = new Set(platformAuto.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','))
+    setPlatformIds (platformAuth) {
+      this.platformIds = new Set(platformAuth.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','))
       if (this.platformIds && [...this.platformIds].length > 0) {
         const isCanRoute = this.platformIds.has(this.clickPlatformId)
         isCanRoute ? this.postCrossToken() : this.$Message.error('没有访问该中心的权限~')
@@ -94,7 +95,6 @@ export default {
       const _self = this
       this.registeMessageHandle()
       const currentGoto = window.localStorage.getItem('currentGoTo')
-      document.getElementById('crossFrame').src = currentGoto
       this.postMessageInterval = setInterval(() => {
         if (_self.postCount >= COUNT_OUT) {
           clearInterval(_self.postMessageInterval)
