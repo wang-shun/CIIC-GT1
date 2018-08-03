@@ -34,8 +34,6 @@
         </Poptip >
       </div>
     </div>
-
-    <!--<iframe id="crossFrame" class="crossFrame" src="#"></iframe>-->
   </div>
 </template>
 <script>
@@ -58,10 +56,13 @@ export default {
     }
   },
   mounted () {
-    this.validateToken()
+    !this.userInfo ? this.backToLogin() : this.validateToken()
   },
   methods: {
     validateToken (url) {
+      if (!this.userInfo) {
+        this.backToLogin()
+      }
       let params = new URLSearchParams()
       params.append("token", this.userInfo.token)
       api.getUserInfoByToken(params).then(res => {
@@ -99,7 +100,7 @@ export default {
         if (_self.postCount >= COUNT_OUT) {
           clearInterval(_self.postMessageInterval)
         }
-        window.frames[0].postMessage(JSON.stringify(_self.userInfo), currentGoto)
+        self !== top ? top.postMessage(JSON.stringify(_self.userInfo), currentGoto) : window.frames[0].postMessage(JSON.stringify(_self.userInfo), currentGoto)
         _self.postCount++
       }, 1000)
     },
