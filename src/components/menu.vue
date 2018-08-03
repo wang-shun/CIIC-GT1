@@ -122,6 +122,7 @@ export default {
     gotoCenter () {
       const currentGoto = window.localStorage.getItem('currentGoTo')
       window.localStorage.removeItem('currentGoTo')
+      this.removeIFrame()
       window.location.href = currentGoto
     },
     createIFrame (url) {
