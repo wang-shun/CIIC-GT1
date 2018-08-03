@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <iframe id="crossFrame" class="crossFrame" src="#"></iframe>
+    <!--<iframe id="crossFrame" class="crossFrame" src="#"></iframe>-->
   </div>
 </template>
 <script>
@@ -69,7 +69,7 @@ export default {
           this.backToLogin()
         } else {
           if (url) {
-            document.getElementById('crossFrame').src = url
+            this.createIFrame(url)
             window.localStorage.setItem('currentGoTo', url)
             this.getMenuAuth()
           }
@@ -123,6 +123,20 @@ export default {
       window.localStorage.removeItem('currentGoTo')
       window.location.href = currentGoto
     },
+    createIFrame (url) {
+      let crossFrame = document.createElement('iframe')
+      crossFrame.setAttribute('id', 'crossFrame')
+      crossFrame.style.display = 'none'
+      crossFrame.style.position = 'absolute'
+      crossFrame.style.left = '-999px'
+      crossFrame.style.top = '-999px'
+      crossFrame.style.zIndex = '999'
+      crossFrame.src = url
+      document.body.appendChild(crossFrame)
+    },
+    removeIFrame () {
+      document.body.removeChild(document.getElementById('crossFrame'))
+    },
     logout () {
       const CLEAR_AND_BACK = () => {
         window.localStorage.clear()
@@ -144,7 +158,6 @@ export default {
 <style scoped>
 * {margin: 0; padding: 0;}
 html, body {width: 100%; height: 100%; min-height: 100%; overflow: hidden;}
-.crossFrame {display: none; position: absolute; z-index: 999; top: -999px; left: -999px;}
 .bg {height: 480px; position: relative; z-index: 1; background: #3d6e8a url('../assets/img/menu-bg.png') no-repeat center top;}
 .f16 {font-size: 16px;}
 .menu {width: 100%; height: 175px;}
