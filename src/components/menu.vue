@@ -128,8 +128,10 @@
           window.localStorage.clear()
           this.backToLogin()
         }
-        api.logout(this.userInfo.token).then(res => {
-          CLEAR_AND_BACK()
+        api.logout({token: this.userInfo.token}).then(res => {
+          if (res.code === 0) {
+            CLEAR_AND_BACK()
+          }
         })
       },
       resetPassword () {
