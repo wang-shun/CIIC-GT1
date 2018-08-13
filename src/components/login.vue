@@ -23,6 +23,7 @@
 </template>
 <script>
   import api from '../assets/api/index'
+  import common from '../assets/js/commonJs'
   import {encryptByDES, decryptByDES} from '../assets/js/cryptojs'
 
   export default {
@@ -39,7 +40,8 @@
         },
         loginNameIsRight: true,
         passwordIsRight: true,
-        isRememberPassword: true
+        isRememberPassword: true,
+        loginInfo: common.login.LOGIN_INFO()
       }
     },
     mounted() {
@@ -49,13 +51,12 @@
     },
     methods: {
       loadLoginInfo () {
-        const loginInfo = JSON.parse(window.localStorage.getItem('loginInfo'))
-        if (!this.isRememberPassword || !loginInfo) {
+        if (!this.isRememberPassword || !this.loginInfo) {
           return
         } else {
-          this.loginValidate.loginName = loginInfo.userName
-          this.loginValidate.password = decryptByDES(loginInfo.password)
-          this.loginValidate.verifyCode = loginInfo.verifyCode
+          this.loginValidate.loginName = this.loginInfo.userName
+          this.loginValidate.password = decryptByDES(this.loginInfo.password)
+          this.loginValidate.verifyCode = this.loginInfo.verifyCode
         }
       },
       validateName () {
@@ -72,13 +73,13 @@
         })
       },
       saveUserInfo (userInfo) {
-        window.localStorage.setItem('userInfo', userInfo)
+        common.user.SET_USER_INFO(userInfo)
         if (this.isRememberPassword) {
-          window.localStorage.setItem('loginInfo', JSON.stringify({userName: this.loginValidate.loginName, password: encryptByDES(this.loginValidate.password), verifyCode: ''}))
+          common.login.SET_LOGIN_INFO(JSON.stringify({userName: this.loginValidate.loginName, password: encryptByDES(this.loginValidate.password), verifyCode: ''}))
         } else {
-          const hasLoginInfo = JSON.parse(window.localStorage.getItem('localStorage')) !== undefined
+          const hasLoginInfo = this.loginInfo !== undefined
           if (hasLoginInfo) {
-            window.localStorage.removeItem('loginInfo')
+            common.login.REMOVE_LOGIN_INFO()
           }
         }
         this.$router.push({name: 'menu'})
@@ -86,15 +87,3 @@
     }
   }
 </script>
-<style scoped>
-  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/img/login-bg.jpg') no-repeat fixed top;}
-  .logo {padding-top: 124px; text-align: center;}
-  .logo > img {margin-bottom: 36px;}
-  .logo > .blueLine {width: 400px; height: 12px; margin: 0 auto; background: #348ac9;}
-  .formContent {width: 440px; height: 360px; margin: 0 auto; padding: 45px 45px; background: white;}
-  .formContent input {font-size: 14px; color: #999; line-height: 50px; width: 100%; height: 50px; margin-bottom: 10px; outline: none; border: none; border-bottom: 1px solid #e2e2e2;}
-  .formContent .error {font-size: 12px; color: red; line-height: 20px; height: 20px;}
-  .formContent button {font-size: 16px; color: white; line-height: 50px; width: 100%; height: 50px; margin-top: 25px; outline: none; border: none; border-radius: 5px; background: #3393d6;}
-  .formContent button:hover {background: #2c98e3;}
-  .formContent a {color: #495060; line-height: 20px; text-align: right; width: 50%; height: 20px; float: right;}
-</style>

@@ -1,5 +1,256 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 html, body {
   width: 100%;
   height: 100%;
   min-height: 100%;
+  overflow: hidden;
+}
+
+/* === 登录页 === */
+.login {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #3d6e8a url('../../src/assets/img/login-bg.jpg') no-repeat fixed top;
+}
+.logo {
+  padding-top: 124px;
+  text-align: center;
+}
+.logo > img {
+  margin-bottom: 36px;
+}
+.logo > .blueLine {
+  width: 400px;
+  height: 12px;
+  margin: 0 auto;
+  background: #348ac9;
+}
+.formContent {
+  width: 440px;
+  height: 360px;
+  margin: 0 auto;
+  padding: 45px 45px;
+  background: white;
+}
+.formContent input {
+  font-size: 14px;
+  color: #999;
+  line-height: 50px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #e2e2e2;
+}
+.formContent .error {
+  font-size: 12px;
+  color: red;
+  line-height: 20px;
+  height: 20px;
+}
+.formContent button {
+  font-size: 16px;
+  color: white;
+  line-height: 50px;
+  width: 100%;
+  height: 50px;
+  margin-top: 25px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #3393d6;
+}
+.formContent button:hover {
+  background: #2c98e3;
+}
+.formContent a {
+  color: #495060;
+  line-height: 20px;
+  text-align: right;
+  width: 50%;
+  height: 20px;
+  float: right;
+}
+
+/* === 大首页 === */
+.bg {
+  height: 480px;
+  position: relative;
+  z-index: 1;
+  background: #3d6e8a url('../../src/assets/img/menu-bg.png') no-repeat center top;
+}
+.f16 {
+  font-size: 16px;
+}
+.menu {
+  width: 100%;
+  height: 175px;
+}
+.menu > .menuInfo, .menu > .menuItem {
+  text-align: right;
+  width: 66%;
+  margin: 0 auto;
+}
+.menu > .menuInfo {
+  padding-top: 35px;
+}
+.menu > .menuItem {
+  padding: 15px 0;
+}
+.menuInfo span, .menuItem a {
+  font-size: 14px;
+  color: #579bc2;
+  text-align: right;
+  display: inline-block;
+  vertical-align: middle;
+}
+.message {
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #295974;
+}
+.menuInfo > .arrow {
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #295974;
+}
+.menuInfo .icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid white;
+}
+.menuInfo .mylist a {
+  font-size: 12px;
+  line-height: 40px;
+  text-align: center;
+  color: #666;
+  display: block;
+  height: 40px;
+  border-bottom: 1px dotted #eee;
+}
+.menuInfo .mylist a:last-child {
+  border-bottom: none;
+}
+.menuInfo .mylist a:hover {
+  color: #2d8cf0;
+}
+.menuInfo .mylist .myTaskList {
+  height: 0;
+  overflow-y: auto;
+}
+.menuInfo .mylist .myTaskList a {
+  display: block;
+  padding: 5px;
+  background: #eee;
+}
+.changeToH {
+  animation: changeToHeight 0.5s ease 0s 1 alternate forwards;
+}
+.changeToZ {
+  animation: changeToZero 0s ease 0s 1 alternate forwards;
+}
+.menuItem a {
+  margin-left: 24px;
+}
+.menuItem .email {
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: url('../../src/assets/img/email.png') no-repeat center center;
+}
+.menuItem .bag {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: url('../../src/assets/img/bag.png') no-repeat center center;
+}
+.menuItem .help {
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: url('../../src/assets/img/help.png') no-repeat center center;
+}
+.menuContent {
+  position: fixed;
+  top: 120px;
+  left: 17%;
+  width: 66%;
+  margin: 0 auto;
+  padding: 1%;
+  box-shadow: 5px 25px 55px rgba(61, 110, 138, 0.3);
+  background: white;
+}
+.menuContent ul {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+  margin-top: -1px;
+}
+.menuContent ul:nth-child(3) {
+  border-bottom: 0;
+  border-right: 1px solid white;
+}
+.menuContent ul:nth-child(3) li {
+  border-bottom: 1px solid #ccc;
+}
+.menuContent ul:nth-child(3) li:last-child {
+  border-right: 1px solid #ccc;
+}
+.menuContent > ul > li {
+  display: block;
+  width: 20%;
+  float: left;
+  border-right: 1px solid #ccc;
+  position: relative;
+}
+.menuContent > ul > li:hover {
+  animation: neon2 2s infinite linear alternate;
+}
+.menuContent > ul > li:last-child {
+  border-right: 0;
+}
+.menuContent > ul > li a {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 10% 16%;
+}
+.menuContent > ul > li a img {
+  width: 76%;
+}
+.menuContent > ul > li p {
+  font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.mi {
+  width: 250px;
+  text-align: left;
+  border:0;
+  padding: 5px 10px;
+}
+@keyframes neon2 {
+  from {box-shadow: inset 0 0 10px #5cadff;}
+  to {box-shadow: inset 0 0 50px #b6dafe;}
+}
+
+@keyframes changeToHeight {
+  from {height: 0;}
+  to {height: 170px;}
+}
+@keyframes changeToZero {
+  from {height: 170px;}
+  to {height: 0;}
 }
