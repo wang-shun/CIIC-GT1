@@ -9,7 +9,7 @@
       <p class="error" v-show="!loginNameIsRight">用户名格式错误</p>
       <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" @keyup.13="handleLogin" />
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
-      <button :style="{opacity: !loginNameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin" style="cursor: pointer;">登录</button>
+      <button :style="{opacity: !loginNameIsRight||!passwordIsRight||isLogining ? '0.8' : '1'}" @click="handleLogin">{{!isLogining ? '登录' : '跳转中...'}}</button>
       <div class="mt40">
         <div class="w50 fl">
           <Checkbox v-model="isRememberPassword">记住密码</Checkbox>
@@ -41,10 +41,15 @@
         loginNameIsRight: true,
         passwordIsRight: true,
         isRememberPassword: true,
-        loginInfo: common.login.LOGIN_INFO()
+        loginInfo: common.login.LOGIN_INFO(),
+        isLogining: false,
+        refer: '',
+        postMessageInterval: {},
+        postCount: 1
       }
     },
     mounted() {
+      this.refer = decodeURIComponent(this.getQueryString('refer'))
       this.loginNameIsRight = true
       this.passwordIsRight = true
       this.loadLoginInfo()
@@ -66,9 +71,15 @@
         this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password)
       },
       handleLogin () {
+        if (this.isLoading) {
+          return
+        }
+        this.isLogining = true
         api.login(this.loginValidate).then(res => {
           if (res.code === 0) {
             this.saveUserInfo(JSON.stringify(res.object))
+          } else {
+            this.isLoading = false
           }
         })
       },
@@ -82,7 +93,51 @@
             common.login.REMOVE_LOGIN_INFO()
           }
         }
-        this.$router.push({name: 'menu'})
+        if (this.refer !== '') {
+          this.createIFrame(this.refer)
+          this.postCrossToken()
+        } else {
+          this.$router.push({name: 'menu'})
+        }
+      },
+      postCrossToken () {
+        common.goto.SET_CURRENT_GOTO(this.refer)
+        this.postMessageInterval = setInterval(() => {
+          if (this.postCount >= common.COUNT_OUT) {
+            clearInterval(this.postMessageInterval)
+          }
+          this.postCount++
+          window.frames[0].postMessage(JSON.stringify(common.user.USER_INFO()), this.refer)
+        }, 100)
+      },
+      createIFrame (url) {
+        if (document.getElementById('crossFrame') !== null) {
+          return
+        }
+        let crossFrame = document.createElement('iframe')
+        crossFrame.setAttribute('id', 'crossFrame')
+        crossFrame.style.display = 'none'
+        crossFrame.style.position = 'absolute'
+        crossFrame.style.left = '-999px'
+        crossFrame.style.top = '-999px'
+        crossFrame.style.zIndex = '999'
+        crossFrame.src = url
+        document.body.appendChild(crossFrame)
+      },
+      removeIFrame () {
+        document.body.removeChild(document.getElementById('crossFrame'))
+      },
+      getQueryString (name) {
+        const url = location.href
+        let theRequest = {}
+        if (url.indexOf("?") !== -1) {
+          let str = url.substr(url.indexOf("?") + 1);
+          let strs = str.split("&")
+          for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split('=')[0]] = strs[i].split("=")[1]
+          }
+        }
+        return theRequest[name] ? theRequest[name] : ''
       }
     }
   }

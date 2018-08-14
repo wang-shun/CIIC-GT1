@@ -1,12 +1,17 @@
 <template>
-  <div class="bg">
+  <div class="bg" @click="clickPlatformId = -1">
     <div class="menuContent">
       <ul v-for="(centerRouter, index) in centerRouters" :key="index">
         <li v-for="(row, index) in centerRouter" :key="index">
-          <a @click="clickPlatformId = row.platformId; validateToken(row.url)">
+          <a @click.stop="clickPlatformId = row.platformId; validateToken(row.url)">
             <img :src="row.imgSrc" />
             <p>{{row.name}}</p>
           </a>
+          <!--<div class="mask" v-if="clickPlatformId === row.platformId">-->
+            <!--<div>-->
+              <!--<p>跳转中...</p>-->
+            <!--</div>-->
+          <!--</div>-->
         </li>
       </ul>
     </div>
@@ -40,8 +45,6 @@
 import api from '../assets/api/index'
 import common from '../assets/js/commonJs'
 import centerRouters from '../assets/data/center_routers'
-
-const COUNT_OUT = 10
 
 export default {
   data() {
@@ -97,12 +100,12 @@ export default {
       const _self = this
       const currentGoto = common.goto.CURRENT_GOTO()
       this.postMessageInterval = setInterval(() => {
-        if (_self.postCount >= COUNT_OUT) {
+        if (_self.postCount >= common.COUNT_OUT) {
           clearInterval(_self.postMessageInterval)
         }
         _self.postCount++
-        self !== top ? top.postMessage(JSON.stringify(_self.userInfo), currentGoto) : window.frames[0].postMessage(JSON.stringify(_self.userInfo), currentGoto)
-      }, 1000)
+        window.frames[0].postMessage(JSON.stringify(_self.userInfo), currentGoto)
+      }, 100)
     },
     createIFrame (url) {
       if (document.getElementById('crossFrame') !== null) {
@@ -126,8 +129,10 @@ export default {
         common.user.REMOVE_USER_INFO()
         this.backToLogin()
       }
-      api.logout(this.userInfo.token).then(res => {
-        CLEAR_AND_BACK()
+      api.logout({token: this.userInfo.token}).then(res => {
+        if (res.code === 0) {
+          CLEAR_AND_BACK()
+        }
       })
     },
     resetPassword () {

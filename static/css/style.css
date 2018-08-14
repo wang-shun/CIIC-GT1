@@ -63,6 +63,7 @@ html, body {
   outline: none;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
   background: #3393d6;
 }
 .formContent button:hover {
@@ -234,6 +235,41 @@ html, body {
 }
 .menuContent > ul > li p {
   font-size: 16px; color: #747474; width: 100%; height: 50px; line-height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.menuContent > ul > li > div.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+.menuContent > ul > li > div.maskWhite {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+  z-index: 999;
+}
+.menuContent > ul > li > div.mask > div {
+  height: 100%;
+  position: relative;
+}
+.menuContent > ul > li > div.mask > div > p{
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  text-shadow: 1px 1px 3px #333;
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  left: 0;
+  bottom: 0;
+  background: #3393d6;
 }
 .mi {
   width: 250px;

@@ -21,7 +21,7 @@ Vue.use(VueAxios,Axios)
 window.addEventListener('message', (event) => {
   const currentGoto = common.goto.CURRENT_GOTO().replace('http://', '').replace(/\//g, '').replace(/#/g, '')
   const origin = event.origin.replace('http://', '').replace(/\//g, '').replace(/#/g, '')
-  if (currentGoto === origin) {
+  if (currentGoto.indexOf(origin) !== -1 || origin.indexOf(currentGoto) !== -1) {
     const res = JSON.parse(event.data)
     if (res.code === 0) {
       const url = common.goto.CURRENT_GOTO()
