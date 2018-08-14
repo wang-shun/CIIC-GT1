@@ -9,7 +9,7 @@
       <p class="error" v-show="!loginNameIsRight">用户名格式错误</p>
       <input type="password" v-model.trim="loginValidate.password" @blur="validatePassword" placeholder="密码" @keyup.13="handleLogin" />
       <p class="error" v-show="!passwordIsRight">密码格式错误</p>
-      <button :style="{opacity: !loginNameIsRight||!passwordIsRight ? '0.8' : '1'}" @click="handleLogin" style="cursor: pointer;">登录</button>
+      <button :style="{opacity: !loginNameIsRight||!passwordIsRight||isLogining ? '0.8' : '1'}" @click="handleLogin">{{!isLogining ? '登录' : '跳转中...'}}</button>
       <div class="mt40">
         <div class="w50 fl">
           <Checkbox v-model="isRememberPassword">记住密码</Checkbox>
@@ -23,6 +23,7 @@
 </template>
 <script>
   import api from '../assets/api/index'
+  import common from '../assets/js/commonJs'
   import {encryptByDES, decryptByDES} from '../assets/js/cryptojs'
 
   export default {
@@ -39,23 +40,28 @@
         },
         loginNameIsRight: true,
         passwordIsRight: true,
-        isRememberPassword: true
+        isRememberPassword: true,
+        loginInfo: common.login.LOGIN_INFO(),
+        isLogining: false,
+        refer: '',
+        postMessageInterval: {},
+        postCount: 1
       }
     },
     mounted() {
+      this.refer = decodeURIComponent(this.getQueryString('refer'))
       this.loginNameIsRight = true
       this.passwordIsRight = true
       this.loadLoginInfo()
     },
     methods: {
       loadLoginInfo () {
-        const loginInfo = JSON.parse(window.localStorage.getItem('loginInfo'))
-        if (!this.isRememberPassword || !loginInfo) {
+        if (!this.isRememberPassword || !this.loginInfo) {
           return
         } else {
-          this.loginValidate.loginName = loginInfo.userName
-          this.loginValidate.password = decryptByDES(loginInfo.password)
-          this.loginValidate.verifyCode = loginInfo.verifyCode
+          this.loginValidate.loginName = this.loginInfo.userName
+          this.loginValidate.password = decryptByDES(this.loginInfo.password)
+          this.loginValidate.verifyCode = this.loginInfo.verifyCode
         }
       },
       validateName () {
@@ -65,36 +71,74 @@
         this.passwordIsRight = this.loginValidate.password === "" ? true : this.loginRule.passwordRule.test(this.loginValidate.password)
       },
       handleLogin () {
+        if (this.isLoading) {
+          return
+        }
+        this.isLogining = true
         api.login(this.loginValidate).then(res => {
           if (res.code === 0) {
             this.saveUserInfo(JSON.stringify(res.object))
+          } else {
+            this.isLoading = false
           }
         })
       },
       saveUserInfo (userInfo) {
-        window.localStorage.setItem('userInfo', userInfo)
+        common.user.SET_USER_INFO(userInfo)
         if (this.isRememberPassword) {
-          window.localStorage.setItem('loginInfo', JSON.stringify({userName: this.loginValidate.loginName, password: encryptByDES(this.loginValidate.password), verifyCode: ''}))
+          common.login.SET_LOGIN_INFO(JSON.stringify({userName: this.loginValidate.loginName, password: encryptByDES(this.loginValidate.password), verifyCode: ''}))
         } else {
-          const hasLoginInfo = JSON.parse(window.localStorage.getItem('localStorage')) !== undefined
+          const hasLoginInfo = this.loginInfo !== undefined
           if (hasLoginInfo) {
-            window.localStorage.removeItem('loginInfo')
+            common.login.REMOVE_LOGIN_INFO()
           }
         }
-        this.$router.push({name: 'menu'})
+        if (this.refer !== '') {
+          this.createIFrame(this.refer)
+          this.postCrossToken()
+        } else {
+          this.$router.push({name: 'menu'})
+        }
+      },
+      postCrossToken () {
+        common.goto.SET_CURRENT_GOTO(this.refer)
+        this.postMessageInterval = setInterval(() => {
+          if (this.postCount >= common.COUNT_OUT) {
+            clearInterval(this.postMessageInterval)
+          }
+          this.postCount++
+          window.frames[0].postMessage(JSON.stringify(common.user.USER_INFO()), this.refer)
+        }, 100)
+      },
+      createIFrame (url) {
+        if (document.getElementById('crossFrame') !== null) {
+          return
+        }
+        let crossFrame = document.createElement('iframe')
+        crossFrame.setAttribute('id', 'crossFrame')
+        crossFrame.style.display = 'none'
+        crossFrame.style.position = 'absolute'
+        crossFrame.style.left = '-999px'
+        crossFrame.style.top = '-999px'
+        crossFrame.style.zIndex = '999'
+        crossFrame.src = url
+        document.body.appendChild(crossFrame)
+      },
+      removeIFrame () {
+        document.body.removeChild(document.getElementById('crossFrame'))
+      },
+      getQueryString (name) {
+        const url = location.href
+        let theRequest = {}
+        if (url.indexOf("?") !== -1) {
+          let str = url.substr(url.indexOf("?") + 1);
+          let strs = str.split("&")
+          for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split('=')[0]] = strs[i].split("=")[1]
+          }
+        }
+        return theRequest[name] ? theRequest[name] : ''
       }
     }
   }
 </script>
-<style scoped>
-  .login {width: 100%; height: 100%; position: relative; background: #3d6e8a url('../assets/img/login-bg.jpg') no-repeat fixed top;}
-  .logo {padding-top: 124px; text-align: center;}
-  .logo > img {margin-bottom: 36px;}
-  .logo > .blueLine {width: 400px; height: 12px; margin: 0 auto; background: #348ac9;}
-  .formContent {width: 440px; height: 360px; margin: 0 auto; padding: 45px 45px; background: white;}
-  .formContent input {font-size: 14px; color: #999; line-height: 50px; width: 100%; height: 50px; margin-bottom: 10px; outline: none; border: none; border-bottom: 1px solid #e2e2e2;}
-  .formContent .error {font-size: 12px; color: red; line-height: 20px; height: 20px;}
-  .formContent button {font-size: 16px; color: white; line-height: 50px; width: 100%; height: 50px; margin-top: 25px; outline: none; border: none; border-radius: 5px; background: #3393d6;}
-  .formContent button:hover {background: #2c98e3;}
-  .formContent a {color: #495060; line-height: 20px; text-align: right; width: 50%; height: 20px; float: right;}
-</style>
