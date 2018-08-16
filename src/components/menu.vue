@@ -17,10 +17,27 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
+        <div class="serviceIcon">
+          <a href="javascript:;">
+            <Badge :count="99" overflow-count="99">
+              <Tooltip content="通知">
+                <Icon type="md-notifications" size="32"/>
+              </Tooltip>
+            </Badge>
+          </a>
+          <a href="javascript:;">
+            <Badge :count="99" overflow-count="99">
+              <Tooltip content="预警">
+                <Icon type="md-warning" size="32"/>
+              </Tooltip>
+            </Badge>
+          </a>
+          <!--<span class="help"></span>-->
+        </div>
         <span class="message"><span class="f16">欢迎您！<strong>{{userInfo ? userInfo.displayName : ''}}</strong></span><br/>工号：{{userInfo ? userInfo.employeeNumber : ''}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom">
-          <Badge count="0" overflow-count="999">
+          <Badge :count="0" overflow-count="999">
             <a href="javascript:;" class="icon">
               <img width="100%" :src="userInfo && userInfo.headPortrait ? userInfo.headPortrait : 'static/img/menu/defaultPortal.jpg'" alt="" />
             </a>

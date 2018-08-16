@@ -165,23 +165,41 @@ html, body {
 .menuItem a {
   margin-left: 24px;
 }
-.menuItem .email {
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  background: url('../../src/assets/img/email.png') no-repeat center center;
+.menuInfo > .serviceIcon {
+  display: inline-block;
+  padding: 15px 0;
+  float: left;
 }
-.menuItem .bag {
-  width: 28px;
-  height: 28px;
+.menuInfo > .serviceIcon a {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 20px;
+}
+.menuInfo > .serviceIcon a:first-child {
+  margin-left: 0;
+}
+.menuInfo .email {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  background: url('../../src/assets/img/email.png') no-repeat center/100%;
+}
+.menuInfo .bag {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-left: 20px;
   border-radius: 10px;
-  background: url('../../src/assets/img/bag.png') no-repeat center center;
+  background: url('../../src/assets/img/bag.png') no-repeat center/100%;
 }
-.menuItem .help {
-  width: 28px;
-  height: 28px;
+.menuInfo .help {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
   border-radius: 14px;
-  background: url('../../src/assets/img/help.png') no-repeat center center;
+  background: url('../../src/assets/img/help.png') no-repeat center/100%;
 }
 .menuContent {
   position: fixed;
