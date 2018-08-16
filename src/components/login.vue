@@ -49,7 +49,7 @@
       }
     },
     mounted() {
-      this.refer = decodeURIComponent(this.getQueryString('refer'))
+      this.refer = decodeURIComponent(decodeURIComponent(this.getQueryString('refer')))
       this.loginNameIsRight = true
       this.passwordIsRight = true
       this.loadLoginInfo()
