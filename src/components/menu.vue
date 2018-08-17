@@ -1,5 +1,5 @@
 <template>
-  <div class="bg" @click="clickPlatformId = -1">
+  <div class="bg">
     <div class="menuContent">
       <ul v-for="(centerRouter, index) in centerRouters" :key="index">
         <li v-for="(row, index) in centerRouter" :key="index">
