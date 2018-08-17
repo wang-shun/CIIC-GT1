@@ -19,30 +19,37 @@
       <div class="menuInfo">
         <div class="serviceIcon">
           <a href="javascript:;">
+            <Poptip trigger="hover" placement="bottom">
+              <Badge :count="99" overflow-count="99">
+                <Icon type="md-warning" size="32"/>
+              </Badge>
+              <div class="mylist" slot="content">
+                <div class="mylistContent" v-for="(alert, index) in mockAlertList" :key="index">
+                  <a @click="isShowAlertList = true">{{alert.alertName}}</a>
+                  <p>
+                    <Badge :count="10" :offset="[10, 0]"></Badge>
+                  </p>
+                </div>
+              </div>
+            </Poptip>
+          </a>
+          <a href="javascript:;">
             <Badge :count="99" overflow-count="99">
               <Tooltip content="通知">
                 <Icon type="md-notifications" size="32"/>
               </Tooltip>
             </Badge>
           </a>
-          <a href="javascript:;">
-            <Badge :count="99" overflow-count="99">
-              <Tooltip content="预警">
-                <Icon type="md-warning" size="32"/>
-              </Tooltip>
-            </Badge>
-          </a>
-          <!--<span class="help"></span>-->
         </div>
         <span class="message"><span class="f16">欢迎您！<strong>{{userInfo ? userInfo.displayName : ''}}</strong></span><br/>工号：{{userInfo ? userInfo.employeeNumber : ''}}</span>
         <span class="arrow"></span>
-        <Poptip trigger="hover" placement="bottom">
+        <Poptip trigger="hover" placement="bottom" width="150">
           <Badge :count="0" overflow-count="999">
             <a href="javascript:;" class="icon">
               <img width="100%" :src="userInfo && userInfo.headPortrait ? userInfo.headPortrait : 'static/img/menu/defaultPortal.jpg'" alt="" />
             </a>
           </Badge>
-          <div class="mylist" slot="content">
+          <div class="mylist" slot="content" style="width: 118px!important;">
             <!-- <a href="http://172.16.9.25:8100/#/pending_approves">我的审批</a>
             <a href="javascript:;" @click="isActive = !isActive">我的任务单 {{isActive ? "▲" : "▼"}}</a>
             <div :class="[isActive ? 'changeToH' : 'changeToZ', 'myTaskList']">
@@ -53,9 +60,17 @@
             <a href="javascript:;" @click="resetPassword">修改密码</a>
             <a href="javascript:;" @click="logout">退出登录</a>
           </div>
-        </Poptip >
+        </Poptip>
       </div>
     </div>
+    <Modal
+      v-model="isShowAlertList"
+      title="预警结果列表">
+      <Table :columns="mockAlertListColumn" :data="mockAlertListData"></Table>
+      <div slot="footer">
+        <Button type="default" @click="isShowAlertList = false">取消</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -72,7 +87,51 @@ export default {
       platformIds: new Set(),
       centerRouters: centerRouters,
       postMessageInterval: {},
-      postCount: 1
+      postCount: 1,
+
+      mockAlertList: [
+        {
+          alertName: '商旅险任务单上传失败',
+          alertNumber: 12
+        },
+        {
+          alertName: '商旅险退保任务单上传失败',
+          alertNumber: 1
+        },
+        {
+          alertName: '用工材料任务单批退',
+          alertNumber: 2
+        }
+      ],
+      isShowAlertList: false,
+      mockAlertListColumn: [
+        {
+          title: '管理方名称',
+          key: 'managerName'
+        },
+        {
+          title: '雇员编号',
+          key: 'employeeId'
+        },
+        {
+          title: '雇员姓名',
+          key: 'employeeName'
+        },
+        {
+          title: '性别',
+          key: 'gender'
+        },
+        {
+          title: '出生日期',
+          key: 'birthday'
+        }
+      ],
+      mockAlertListData: [
+        {managerName: '0', employeeId: '', employeeName: '', gender: '', birthday: ''},
+        {managerName: '1', employeeId: '', employeeName: '', gender: '', birthday: ''},
+        {managerName: '2', employeeId: '', employeeName: '', gender: '', birthday: ''},
+        {managerName: '3', employeeId: '', employeeName: '', gender: '', birthday: ''},
+      ]
     }
   },
   mounted () {
