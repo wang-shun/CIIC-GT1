@@ -7,5 +7,6 @@ module.exports = merge(prodEnv, {
   HOME_PATH: '"http://localhost:8070/#/"',
   BASE_PATH: '"http://localhost"',
   COMMON_SERVICE: '"http://172.16.9.31:9621/api"',
+  ALERT_SERVICE: '"http://172.16.9.31:9611/api"',
   SYSTEM_MANAGE_API_SERVICE: '"http://172.16.9.31:2003/api"'
 });

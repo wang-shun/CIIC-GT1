@@ -9,35 +9,49 @@ export default {
    * 登录
    */
   login: async (params) => {
-    const response = await Http.post(Interface.login, params);
-    return await response.data;
+    const response = await Http.post(Interface.login, params)
+    return await response.data
   },
   /**
    * 登出
    */
   logout: async (params) => {
-    const response = await Http.post(Interface.logout, params);
-    return await response.data;
+    const response = await Http.post(Interface.logout, params)
+    return await response.data
   },
   /**
    * 根据token获取用户
    */
   getUserInfoByToken: async (params) => {
-    const response = await Http.post(Interface.getUserInfoByToken, params);
-    return await response.data;
+    const response = await Http.post(Interface.getUserInfoByToken, params)
+    return await response.data
   },
   /**
    * 修改密码
    */
   resetPassword: async (params) => {
-    const response = await Http.post(Interface.resetPassword, params);
-    return await response.data;
+    const response = await Http.post(Interface.resetPassword, params)
+    return await response.data
   },
   /**
    * 获取用户可访问中心的权限
    */
   getPlatformAuth: async (params) => {
-    const response = await Http.get(`${Interface.getPlatformAuth}/${params}`);
-    return await response.data;
-  }
+    const response = await Http.get(`${Interface.getPlatformAuth}/${params}`)
+    return await response.data
+  },
+  /**
+   * 预警数量
+   */
+  getAlertCount: async(params) => {
+    const response = await Http.get(Interface.alertCount, params)
+    return await response.data
+  },
+  /**
+   * 通知数量
+   */
+  getNotifyCount: async(params) => {
+    const response = await Http.get(Interface.notifyCount, params)
+    return await response.data
+  },
 }

@@ -20,7 +20,7 @@
         <div class="serviceIcon">
           <a href="javascript:;">
             <Poptip trigger="hover" placement="bottom">
-              <Badge :count="99" overflow-count="99">
+              <Badge :count="alertCount" overflow-count="99">
                 <Icon type="md-warning" size="32"/>
               </Badge>
               <div class="mylist" slot="content">
@@ -34,7 +34,7 @@
             </Poptip>
           </a>
           <a href="javascript:;">
-            <Badge :count="99" overflow-count="99">
+            <Badge :count="notifyCount" overflow-count="99">
               <Tooltip content="通知">
                 <Icon type="md-notifications" size="32"/>
               </Tooltip>
@@ -131,13 +131,29 @@ export default {
         {managerName: '1', employeeId: '', employeeName: '', gender: '', birthday: ''},
         {managerName: '2', employeeId: '', employeeName: '', gender: '', birthday: ''},
         {managerName: '3', employeeId: '', employeeName: '', gender: '', birthday: ''},
-      ]
+      ],
+      alertCount: 0,
+      notifyCount: 0
     }
   },
   mounted () {
     !this.userInfo ? this.backToLogin() : this.validateToken()
   },
   methods: {
+    getAlertCount () {
+      api.getAlertCount({token: this.userInfo.token}).then(res => {
+        if (res.code === 0) {
+          this.alertCount = res.object
+        }
+      })
+    },
+    getNotifyCount () {
+      api.getNotifyCount({token: this.userInfo.token}).then(res => {
+        if (res.code === 0) {
+          this.notifyCount = res.object
+        }
+      })
+    },
     validateToken (url) {
       let params = new URLSearchParams()
       params.append("token", this.userInfo.token)
@@ -149,6 +165,9 @@ export default {
             this.createIFrame(url)
             common.goto.SET_CURRENT_GOTO(url)
             this.getMenuAuth()
+          } else {
+            this.getAlertCount()
+            this.getNotifyCount()
           }
         }
       })
