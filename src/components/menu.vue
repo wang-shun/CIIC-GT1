@@ -162,34 +162,36 @@ export default {
           this.backToLogin()
         } else {
           if (url) {
-            this.createIFrame(url)
-            common.goto.SET_CURRENT_GOTO(url)
-            this.getMenuAuth()
+            if (this.platformIds.has(this.clickPlatformId)) {
+              common.goto.SET_CURRENT_GOTO(url)
+              this.postCrossToken()
+            } else {
+              this.$Message.error('您没有访问该中心的权限~')
+              return
+            }
           } else {
             this.getAlertCount()
             this.getNotifyCount()
+            this.getAllMenuAuth()
           }
         }
       })
     },
-    getMenuAuth () {
+    getAllMenuAuth () {
+      const _self = this
       api.getPlatformAuth(this.userInfo.userId).then(res => {
         if (res.code !== 0) {
           this.removeIFrame()
           this.backToLogin()
         } else {
-          this.setPlatformIds(res)
+          this.platformIds = new Set(res.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','))
+          centerRouters.forEach(row => {
+            row.forEach(center => {
+              _self.createIFrame(center)
+            })
+          })
         }
       })
-    },
-    setPlatformIds (platformAuth) {
-      this.platformIds = new Set(platformAuth.data.replace(/\[|\]/g, '').replace(/ /g,'').split(','))
-      if (this.platformIds && [...this.platformIds].length > 0 && this.platformIds.has(this.clickPlatformId)) {
-        this.postCrossToken()
-      } else {
-        this.removeIFrame()
-        this.$Message.error('没有访问该中心的权限~')
-      }
     },
     postCrossToken () {
       const _self = this
@@ -199,29 +201,32 @@ export default {
           clearInterval(_self.postMessageInterval)
         }
         _self.postCount++
-        window.frames[0].postMessage(JSON.stringify(_self.userInfo), currentGoto)
+        document.getElementById(this.clickPlatformId).contentWindow.postMessage(JSON.stringify(_self.userInfo), currentGoto)
       }, 100)
     },
-    createIFrame (url) {
-      if (document.getElementById('crossFrame') !== null) {
+    createIFrame (center) {
+      if (document.getElementById(center.platformId) !== null) {
         return
       }
       let crossFrame = document.createElement('iframe')
-      crossFrame.setAttribute('id', 'crossFrame')
+      crossFrame.setAttribute('id', center.platformId)
       crossFrame.style.display = 'none'
       crossFrame.style.position = 'absolute'
       crossFrame.style.left = '-999px'
       crossFrame.style.top = '-999px'
-      crossFrame.style.zIndex = '999'
-      crossFrame.src = url
+      crossFrame.style.zIndex = 999 + parseInt(center.platformId)
+      crossFrame.src = center.url
       document.body.appendChild(crossFrame)
     },
     removeIFrame () {
-      document.body.removeChild(document.getElementById('crossFrame'))
+      [...this.platformIds].forEach(id => {
+        document.body.removeChild(document.getElementById(id))
+      })
     },
     logout () {
       const CLEAR_AND_BACK = () => {
         common.user.REMOVE_USER_INFO()
+        this.removeIFrame()
         this.backToLogin()
       }
       api.logout({token: this.userInfo.token}).then(res => {
