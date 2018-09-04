@@ -43,15 +43,15 @@ export default {
   /**
    * 预警数量
    */
-  getAlertCount: async(params) => {
-    const response = await Http.get(Interface.alertCount, params)
+  getCountResult: async(params) => {
+    const response = await Http.post(Interface.countResult, params)
     return await response.data
   },
   /**
-   * 通知数量
+   * 预警结果列表
    */
-  getNotifyCount: async(params) => {
-    const response = await Http.get(Interface.notifyCount, params)
+  getListResult: async(params) => {
+    const response = await Http.post(Interface.listResult, params)
     return await response.data
   },
 }

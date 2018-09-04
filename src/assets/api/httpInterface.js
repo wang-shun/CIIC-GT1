@@ -29,11 +29,11 @@ export default {
    */
   getPlatformAuth: SYSTEM_MANAGE_API_SERVICE_HOST + '/authservice/auth/getPlatformAuth',
   /**
-   * 预警
+   * 预警结果计数
    */
-  alertCount: ALERT_SERVICE_HOST + '/alert/count',
+  countResult: ALERT_SERVICE_HOST + '/alert/countResult',
   /**
-   * 通知
+   * 预警结果列表
    */
-  notifyCount: ALERT_SERVICE_HOST + '/notify/count',
+  listResult: ALERT_SERVICE_HOST + '/alert/listResult',
 }

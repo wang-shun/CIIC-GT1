@@ -135,6 +135,17 @@ html, body {
 .menuInfo .mylist {
   width: 200px;
 }
+.menuInfo .mylist input.mylistSearch {
+  color: #666;
+  padding: 10px;
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.menuInfo .mylist input.mylistSearch:focus {
+  outline: 0;
+}
 .menuInfo .mylist > a {
   font-size: 12px;
   line-height: 40px;
@@ -331,4 +342,22 @@ html, body {
 @keyframes changeToZero {
   from {height: 170px;}
   to {height: 0;}
+}
+
+/*滚动条样式*/
+*::-webkit-scrollbar {
+  position: absolute;
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #5cadff;
+}
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #eee !important;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #5cadff !important;
 }
