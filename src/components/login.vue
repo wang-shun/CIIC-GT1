@@ -64,6 +64,14 @@
           this.loginValidate.verifyCode = this.loginInfo.verifyCode
         }
       },
+      resetLoginInfo () {
+        this.loginValidate.loginName = ''
+        this.loginValidate.password = ''
+        this.loginValidate.verifyCode = ''
+        this.loginNameIsRight = true
+        this.passwordIsRight = true
+        this.isLogining = false
+      },
       validateName () {
         this.loginNameIsRight = this.loginValidate.loginName === "" ? true : this.loginRule.loginNameRule.test(this.loginValidate.loginName)
       },
@@ -79,7 +87,7 @@
           if (res.code === 0) {
             this.saveUserInfo(JSON.stringify(res.object))
           } else {
-            this.isLoading = false
+            this.resetLoginInfo()
           }
         })
       },

@@ -54,4 +54,32 @@ export default {
     const response = await Http.post(Interface.listResult, params)
     return await response.data
   },
+  /**
+   * 预警结果详情
+   */
+  getResultDetail: async(params) => {
+    const response = await Http.post(Interface.resultDetail, params)
+    return await response.data
+  },
+  /**
+   * 预警标记已读
+   */
+  markAsRead: async(params) => {
+    const response = await Http.post(Interface.markAsRead, params)
+    return await response.data
+  },
+  /**
+   * 结果页动态展示字段
+   */
+  listAllTypeAndConfig: async(params) => {
+    const response = await Http.post(Interface.listAllTypeAndConfig, params)
+    return await response.data
+  },
+  /**
+   * 立即执行预警
+   */
+  run: async(params) => {
+    const response = await Http.post(Interface.run, params)
+    return await response.data
+  }
 }

@@ -27,10 +27,10 @@
                 <div>
                   <input class="mylistSearch" type="text" v-model="searchAlert" @input="searchAlertResult" placeholder="请输入要查找的预警名称" />
                 </div>
-                <div class="mylistContent" v-for="(alert, index) in mockFilterAlertList" :key="index">
-                  <a @click="showMockAlert(alert.alertType)">{{alert.alertName}}</a>
+                <div class="mylistContent" v-for="(alert, index) in filterAlertList" :key="index">
+                  <a @click="showAlertDetail(alert.alertId, alert.type)">{{alert.alertName}}</a>
                   <p>
-                    <Badge :count="alert.alertNumber" :offset="[10, 0]"></Badge>
+                    <Badge v-if="(alert.count > 0) && (alert.readStatus !== 1)" :count="alert.count" :offset="[10, 0]"></Badge>
                   </p>
                 </div>
               </div>
@@ -67,17 +67,15 @@
       </div>
     </div>
     <Modal
-      v-model="isShowAlertList"
+      v-model="isShowAlertDetailList"
       title="预警结果列表"
       width="760px">
-      <Table :columns="mockAlertType1Column" :data="mockAlertType1Data" ref="type1" v-if="currentAlertType === 1"></Table>
-      <Table :columns="mockAlertType1Column" :data="mockAlertType1Data" ref="type2" v-else-if="currentAlertType === 2"></Table>
-      <Table :columns="mockAlertType3Column" :data="mockAlertType3Data" ref="type3" v-else-if="currentAlertType === 3"></Table>
-      <Table :columns="mockAlertType4Column" :data="mockAlertType4Data" ref="type4" v-else></Table>
+      <Table ref="alertDetailList" :columns="currentAlertDetailColumns" :data="alertDetailList" border></Table>
       <div slot="footer">
-        <Button type="primary" @click="refresh(currentAlertType)">刷新</Button>
-        <Button type="info" @click="exportXls(currentAlertType)">导出</Button>
-        <Button type="default" @click="isShowAlertList = false">取消</Button>
+        <Button type="primary" @click="run" v-if="alertDetailList.length > 0">立即执行</Button>
+        <Button type="primary" @click="refresh">刷新</Button>
+        <Button type="info" @click="exportXls">导出</Button>
+        <Button type="default" @click="isShowAlertDetailList = false">取消</Button>
       </div>
     </Modal>
   </div>
@@ -97,238 +95,22 @@ export default {
       centerRouters: centerRouters,
       postMessageInterval: {},
       postCount: 1,
-
-      currentAlertType: 0,
+      currentAlertId: -1,
+      currentAlertType: -1,
+      alertCount: 0,
+      isShowAlertDetailList: false,
       searchAlert: '',
-      mockFilterAlertList: [],
-      mockAlertList: [
-        {
-          alertType: 1,
-          alertName: '合同即将到期预警',
-          alertNumber: 3
-        },
-        {
-          alertType: 2,
-          alertName: '合同到期预警',
-          alertNumber: 1
-        },
-        {
-          alertType: 3,
-          alertName: '退休预警',
-          alertNumber: 2
-        },
-        {
-          alertType: 4,
-          alertName: '子女投保年龄到期前1月预警',
-          alertNumber: 2
-        }
-      ],
-      isShowAlertList: false,
-      mockAlertType1Column: [
-        {
-          title: '管理方编号',
-          key: 'managerId',
-          width: 100
-        },
-        {
-          title: '管理方名称',
-          key: 'managerName',
-          width: 100
-        },
-        {
-          title: '客户编号',
-          key: 'customerId',
-          width: 100
-        },
-        {
-          title: '客户名称',
-          key: 'customerName',
-          width: 200
-        },
-        {
-          title: '雇员编号',
-          key: 'employeeId',
-          width: 100
-        },
-        {
-          title: '雇员姓名',
-          key: 'employeeName',
-          width: 200
-        },
-        {
-          title: '合同到期日期',
-          key: 'contractDeadline',
-          width: 200
-        },
-        {
-          title: '客户服务',
-          key: 'customerService',
-          width: 100
-        },
-        {
-          title: '咨询顾问',
-          key: 'consulateAdviser',
-          width: 100
-        },
-        {
-          title: '中心',
-          key: 'center',
-          width: 100
-        }
-      ],
-      mockAlertType1Data: [
-        {managerId: 'm0001', managerName: 'mTest1', customerId: 'c0001', customerName: 'cTest1', employeeId: 'e0001', employeeName: 'eTest1', contractDeadline: '2018-08-23', customerService: 'test', consulateAdviser: 'caTest1', center: '01'},
-        {managerId: 'm0002', managerName: 'mTest2', customerId: 'c0002', customerName: 'cTest2', employeeId: 'e0002', employeeName: 'eTest2', contractDeadline: '2018-08-23', customerService: 'test', consulateAdviser: 'caTest2', center: '02'},
-        {managerId: 'm0003', managerName: 'mTest3', customerId: 'c0003', customerName: 'cTest3', employeeId: 'e0003', employeeName: 'eTest3', contractDeadline: '2018-08-23', customerService: 'test', consulateAdviser: 'caTest3', center: '03'}
-      ],
-      mockAlertType3Column: [
-        {
-          title: '管理方编号',
-          key: 'managerId',
-          width: 100
-        },
-        {
-          title: '管理方名称',
-          key: 'managerName',
-          width: 100
-        },
-        {
-          title: '客户编号',
-          key: 'customerId',
-          width: 100
-        },
-        {
-          title: '客户名称',
-          key: 'customerName',
-          width: 200
-        },
-        {
-          title: '雇员编号',
-          key: 'employeeId',
-          width: 100
-        },
-        {
-          title: '雇员姓名',
-          key: 'employeeName',
-          width: 200
-        },
-        {
-          title: '性别',
-          key: 'gender',
-          width: 80
-        },
-        {
-          title: '出生日期',
-          key: 'birthday',
-          width: 100
-        },
-        {
-          title: '客户服务',
-          key: 'customerService',
-          width: 100
-        },
-        {
-          title: '咨询顾问',
-          key: 'consulateAdviser',
-          width: 100
-        },
-        {
-          title: '中心',
-          key: 'center',
-          width: 100
-        }
-      ],
-      mockAlertType3Data: [
-        {managerId: 'm0001', managerName: 'mTest1', customerId: 'c0001', customerName: 'cTest1', employeeId: 'e0001', employeeName: 'eTest1', gender: '男', birthday: '1982-10-26', customerService: 'test', consulateAdviser: 'caTest1', center: '01'},
-        {managerId: 'm0002', managerName: 'mTest2', customerId: 'c0002', customerName: 'cTest2', employeeId: 'e0002', employeeName: 'eTest2', gender: '女', birthday: '1982-10-26', customerService: 'test', consulateAdviser: 'caTest2', center: '02'},
-      ],
-      mockAlertType4Column: [
-        {
-          title: '管理方编号',
-          key: 'managerId',
-          width: 100
-        },
-        {
-          title: '管理方名称',
-          key: 'managerName',
-          width: 100
-        },
-        {
-          title: '客户编号',
-          key: 'customerId',
-          width: 100
-        },
-        {
-          title: '客户名称',
-          key: 'customerName',
-          width: 200
-        },
-        {
-          title: '雇员编号',
-          key: 'employeeId',
-          width: 100
-        },
-        {
-          title: '雇员姓名',
-          key: 'employeeName',
-          width: 200
-        },
-        {
-          title: '子女姓名',
-          key: 'childName',
-          width: 100
-        },
-        {
-          title: '子女出生日期',
-          key: 'childBirthday',
-          width: 150
-        },
-        {
-          title: '客户服务',
-          key: 'customerService',
-          width: 100
-        },
-        {
-          title: '咨询顾问',
-          key: 'consulateAdviser',
-          width: 100
-        },
-        {
-          title: '中心',
-          key: 'center',
-          width: 100
-        }
-      ],
-      mockAlertType4Data: [
-        {managerId: 'm0001', managerName: 'mTest1', customerId: 'c0001', customerName: 'cTest1', employeeId: 'e0001', employeeName: 'eTest1', childName: 'cnTest1', childBirthday: '2018-03-16', customerService: 'test', consulateAdviser: 'caTest1', center: '01'},
-        {managerId: 'm0002', managerName: 'mTest2', customerId: 'c0002', customerName: 'cTest2', employeeId: 'e0002', employeeName: 'eTest2', childName: 'cnTest2', childBirthday: '2018-03-16', customerService: 'test', consulateAdviser: 'caTest2', center: '02'}
-      ],
-      alertCount: 0
+      alertList: [],
+      filterAlertList: [],
+      alertDetailColumns: [],
+      currentAlertDetailColumns: [],
+      alertDetailList: []
     }
   },
   mounted () {
     !this.userInfo ? this.backToLogin() : this.validateToken()
-    this.mockFilterAlertList = this.mockAlertList
   },
   methods: {
-    showMockAlert (alertType) {
-      this.isShowAlertList = true
-      this.currentAlertType = alertType
-    },
-    getCountResult () {
-      api.getCountResult({userId: this.userInfo.userId}).then(res => {
-        if (res.code === 0) {
-          this.alertCount = res.object
-        }
-      })
-    },
-    getListResult () {
-      api.getListResult({userId: this.userInfo.userId}).then(res => {
-        if (res.code === 0) {
-          console.log(res)
-        }
-      })
-    },
     validateToken (url) {
       let params = new URLSearchParams()
       params.append("token", this.userInfo.token)
@@ -345,6 +127,7 @@ export default {
               return
             }
           } else {
+            this.getListAllTypeAndConfig()
             this.getCountResult()
             this.getListResult()
             this.getAllMenuAuth()
@@ -352,7 +135,49 @@ export default {
         }
       })
     },
-    getAllMenuAuth () {
+    getListAllTypeAndConfig () {
+      api.listAllTypeAndConfig({configType: '1'}).then(res => {
+        this.createTypeAndConfigColumn(res.data)
+      })
+    },
+    createTypeAndConfigColumn (data) {
+      const _self = this
+      data.forEach(column => {
+        let alertDetail = {
+          id: -1,
+          name: '',
+          columns: []
+        }
+        alertDetail.id = column.id
+        alertDetail.name = column.name
+        column.alertFieldResponseDTOS.forEach(field => {
+          let c = {
+            title: '',
+            key: '',
+          }
+          c.title = field.field
+          c.key = field.name
+          alertDetail.columns.push(c)
+        })
+        _self.alertDetailColumns.push(alertDetail)
+      })
+    },
+    getCountResult () { // 预警总数
+      api.getCountResult({userId: this.userInfo.userId}).then(res => {
+        if (res.code === 0) {
+          this.alertCount = res.data
+        }
+      })
+    },
+    getListResult () { // 预警结果列表
+      const _self = this
+      api.getListResult({userId: _self.userInfo.userId}).then(res => {
+        if (res.code === 0) {
+          _self.filterAlertList = _self.alertList = res.data
+        }
+      })
+    },
+    getAllMenuAuth () { // 获得可操作中心的权限
       const _self = this
       api.getPlatformAuth(this.userInfo.userId).then(res => {
         if (res.code !== 0) {
@@ -368,17 +193,6 @@ export default {
         }
       })
     },
-    postCrossToken () {
-      const _self = this
-      const currentGoto = common.goto.CURRENT_GOTO()
-      this.postMessageInterval = setInterval(() => {
-        if (_self.postCount >= common.COUNT_OUT) {
-          clearInterval(_self.postMessageInterval)
-        }
-        _self.postCount++
-        document.getElementById(this.clickPlatformId).contentWindow.postMessage(JSON.stringify(_self.userInfo), currentGoto)
-      }, 100)
-    },
     createIFrame (center) {
       if (document.getElementById(center.platformId) !== null) {
         return
@@ -392,6 +206,50 @@ export default {
       crossFrame.style.zIndex = 999 + parseInt(center.platformId)
       crossFrame.src = center.url
       document.body.appendChild(crossFrame)
+    },
+    postCrossToken () {
+      const _self = this
+      const currentGoto = common.goto.CURRENT_GOTO()
+      this.postMessageInterval = setInterval(() => {
+        if (_self.postCount >= common.COUNT_OUT) {
+          clearInterval(_self.postMessageInterval)
+        }
+        _self.postCount++
+        document.getElementById(this.clickPlatformId).contentWindow.postMessage(JSON.stringify(_self.userInfo), currentGoto)
+      }, 100)
+    },
+    showAlertDetail (alertId, type) {
+      const _self = this
+      _self.currentAlertId = alertId
+      _self.currentAlertType = type
+      api.getResultDetail({userId: _self.userInfo.userId, alertId: alertId}).then(res => {
+        _self.alertDetailColumns.forEach(column => {
+          if (column.id === parseInt(type)) {
+            _self.currentAlertDetailColumns = column.columns
+            _self.alertDetailList = JSON.parse(res.data.result)
+            _self.isShowAlertDetailList = true
+          }
+        })
+      })
+      api.markAsRead(({userId: _self.userInfo.userId, alertId: alertId})).then(res => {
+        if (res.code === 0) {
+          _self.getCountResult()
+          _self.getListResult()
+        }
+      })
+    },
+    searchAlertResult (e) {
+      this.filterAlertList = this.alertList.filter(alert => {
+        return alert.alertName.indexOf(this.searchAlert) !== -1
+      })
+    },
+    refresh () {
+      this.showAlertDetail(this.currentAlertId, this.currentAlertType)
+    },
+    run () {
+      api.run({alertId: this.currentAlertId}).then(res => {
+        this.$Message.success('已执行，请稍后刷新查看结果')
+      })
     },
     removeIFrame () {
       [...this.platformIds].forEach(id => {
@@ -413,16 +271,8 @@ export default {
         }
       })
     },
-    exportXls (currentType) {
-      this.$refs[`type${currentType}`].exportCsv({filename: `type${currentType}`})
-    },
-    searchAlertResult (e) {
-      this.mockFilterAlertList = this.mockAlertList.filter(alert => {
-        return alert.alertName.indexOf(this.searchAlert) !== -1
-      })
-    },
-    refresh (currentAlertType) {
-
+    exportXls () {
+      this.$refs['alertDetailList'].exportCsv()
     },
     resetPassword () {
       this.$router.push('changePassword')

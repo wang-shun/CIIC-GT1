@@ -36,4 +36,20 @@ export default {
    * 预警结果列表
    */
   listResult: ALERT_SERVICE_HOST + '/alert/listResult',
+  /**
+   * 预警结果详情
+   */
+  resultDetail: ALERT_SERVICE_HOST + '/alert/getResultDetail',
+  /**
+   * 预警标记已读
+   */
+  markAsRead: ALERT_SERVICE_HOST + '/alert/markAsRead',
+  /**
+   * 结果页动态展示字段
+   */
+  listAllTypeAndConfig: ALERT_SERVICE_HOST + '/alert/listAllTypeAndConfig',
+  /**
+   * 立即执行预警
+   */
+  run: ALERT_SERVICE_HOST + '/alert/run'
 }
