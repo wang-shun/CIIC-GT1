@@ -17,25 +17,25 @@
     </div>
     <div class="menu">
       <div class="menuInfo">
-        <div class="serviceIcon">
-          <a href="javascript:;">
-            <Poptip trigger="hover" placement="bottom">
-              <Badge :count="alertCount" overflow-count="99">
-                <Icon type="md-warning" size="32"/>
-              </Badge>
-              <div class="mylist" slot="content">
-                <div>
-                  <input class="mylistSearch" type="text" v-model="searchAlert" @input="searchAlertResult" placeholder="请输入要查找的预警名称" />
-                </div>
-                <div class="mylistContent" v-for="(alert, index) in filterAlertList" :key="index">
-                  <a @click="showAlertDetail(alert.alertId, alert.type)">{{alert.alertName}}</a>
-                  <p>
-                    <Badge v-if="(alert.count > 0) && (alert.readStatus !== 1)" :count="alert.count" :offset="[10, 0]"></Badge>
-                  </p>
-                </div>
-              </div>
-            </Poptip>
-          </a>
+        <!--<div class="serviceIcon">-->
+          <!--<a href="javascript:;">-->
+            <!--<Poptip trigger="hover" placement="bottom">-->
+              <!--<Badge :count="alertCount" overflow-count="99">-->
+                <!--<Icon type="md-warning" size="32"/>-->
+              <!--</Badge>-->
+              <!--<div class="mylist" slot="content">-->
+                <!--<div>-->
+                  <!--<input class="mylistSearch" type="text" v-model="searchAlert" @input="searchAlertResult" placeholder="请输入要查找的预警名称" />-->
+                <!--</div>-->
+                <!--<div class="mylistContent" v-for="(alert, index) in filterAlertList" :key="index">-->
+                  <!--<a @click="showAlertDetail(alert.alertId, alert.type)">{{alert.alertName}}</a>-->
+                  <!--<p>-->
+                    <!--<Badge v-if="(alert.count > 0) && (alert.readStatus !== 1)" :count="alert.count" :offset="[10, 0]"></Badge>-->
+                  <!--</p>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</Poptip>-->
+          <!--</a>-->
           <!--<a href="javascript:;">-->
             <!--<Badge :count="notifyCount" overflow-count="99">-->
               <!--<Tooltip content="通知">-->
@@ -43,7 +43,7 @@
               <!--</Tooltip>-->
             <!--</Badge>-->
           <!--</a>-->
-        </div>
+        <!--</div>-->
         <span class="message"><span class="f16">欢迎您！<strong>{{userInfo ? userInfo.displayName : ''}}</strong></span><br/>工号：{{userInfo ? userInfo.employeeNumber : ''}}</span>
         <span class="arrow"></span>
         <Poptip trigger="hover" placement="bottom" width="150">
@@ -72,7 +72,7 @@
       width="760px">
       <Table ref="alertDetailList" :columns="currentAlertDetailColumns" :data="alertDetailList" border></Table>
       <div slot="footer">
-        <Button type="primary" @click="run" v-if="alertDetailList.length > 0">立即执行</Button>
+        <!--<Button type="primary" @click="run" v-if="alertDetailList.length > 0">立即执行</Button>-->
         <Button type="primary" @click="refresh">刷新</Button>
         <Button type="info" @click="exportXls">导出</Button>
         <Button type="default" @click="isShowAlertDetailList = false">取消</Button>
