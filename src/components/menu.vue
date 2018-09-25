@@ -127,9 +127,9 @@ export default {
               return
             }
           } else {
-            this.getListAllTypeAndConfig()
-            this.getCountResult()
-            this.getListResult()
+//            this.getListAllTypeAndConfig()
+//            this.getCountResult()
+//            this.getListResult()
             this.getAllMenuAuth()
           }
         }
